@@ -1,6 +1,8 @@
 package com.dicoding.myintentapp
 
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -24,6 +26,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         /* Logika Tombol moveWithObject*/
         val btnMoveWithObject: Button = findViewById(R.id.btn_moveWithObject)
         btnMoveWithObject.setOnClickListener(this)
+
+        /* Logika Tombol Dial Number*/
+        val btnDial: Button = findViewById(R.id.btn_dialUp)
+        btnDial.setOnClickListener(this)
 
     }
 
@@ -80,6 +86,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 moveWithObjectIntent.putExtra(MoveWithObjectActivity.EXTRA_PERSON, person)
 
                 startActivity(moveWithObjectIntent)
+            }
+
+            //jika menekan tombol dial up
+            R.id.btn_dialUp -> {
+                //nomor telepon yang akan dipakai
+                val phoneNum = "082215760138"
+
+                //intent secara implisit dengan parameter ACTION dan URI
+                val dialUpIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNum"))
+                /*
+                * ACTION_DIAL merupakan parameter untuk menentukan ntent filter dari aplikasi-aplikasi yang bisa menangani
+                * action tersebut.
+                *
+                * Uri adalah sebuah untaian karakter yang digunakan untuk mengidentifikasi nama, sumber, atau layanan di
+                * internet sesuai dengan RFC 2396. Pada Uri.parse("tel:"+phoneNumber), kita melakukan parsing uri dari bentuk teks
+                * string menjadi sebuah obyek uri dengan menggunakan metode static parse(String).
+                *
+                * Dimana tel adalah sebuah skema untuk sumber daya telepon dan phoneNumber adalah nomor telepon
+                * yang sudah ditentukan sebelumnya, URI dapat digunakan untuk peta (geo) dan browser (http)*/
+
+                startActivity(dialUpIntent)
             }
         }
     }
