@@ -7,8 +7,27 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+    //variabel text view result untuk menyimpan nilai dari activity
+    private lateinit var tvResult: TextView
+
+    //agar activity dapat mengembalikan sebuah nilai
+    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+    { result ->
+        if (result.resultCode == MoveForResultActivity.RESULT_CODE && result.data != null) {
+            val selectedValue = result.data?.getIntExtra(MoveForResultActivity.EXTRA_SELECTED_VALUE, 0)
+            tvResult.text = "Hasil : $selectedValue"
+        }
+    }
+
+    /*
+    * Anda perlu mendaftarkan jenis kembalian ke sistem dengan menggunakan kode registerForActivityResult dengan parameter
+    * ActivityResultContract berupa ActivityResultContract. Hal ini karena kita akan mendapatkan nilai kembalian
+    * setelah memanggil Activity baru.*/
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,6 +49,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         /* Logika Tombol Dial Number*/
         val btnDial: Button = findViewById(R.id.btn_dialUp)
         btnDial.setOnClickListener(this)
+
+        /* Logika Tombol moveForResult*/
+        val btnMoveForResult: Button = findViewById(R.id.btn_moveForResult)
+        btnMoveForResult.setOnClickListener(this)
+
+        //identifikasi textview hasil result
+        tvResult = findViewById(R.id.tv_result)
 
     }
 
@@ -107,6 +133,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 * yang sudah ditentukan sebelumnya, URI dapat digunakan untuk peta (geo) dan browser (http)*/
 
                 startActivity(dialUpIntent)
+            }
+
+            //pindah activity ke moveForResult
+            R.id.btn_moveForResult -> {
+                val moveForResultIntent = Intent(this@MainActivity, MoveForResultActivity::class.java)
+
+                //ketika ingin membuat sebuah variabel mengembalikan nilai maka kode yang dipakai adalah method launch
+                resultLauncher.launch(moveForResultIntent)
+
             }
         }
     }
