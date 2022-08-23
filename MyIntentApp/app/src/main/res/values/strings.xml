@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MyIntentApp</string>
+    <string name="move_activity">Move Activity</string>
+    <string name="move_with_data">Move Activity with Data</string>
+    <string name="move_with_object">Move Activity with Object</string>
+    <string name="dial_number">Dial a Number</string>
+    <string name="move_with_result">Move Activity with result</string>
+    <string name="result_from_activity">Result from Activity</string>
+    <string name="_50">50</string>
+    <string name="_100">100</string>
+    <string name="_150">150</string>
+    <string name="_200">200</string>
+    <string name="choose">Choose</string>
+    <string name="data_received">Data Accepted</string>
+    <string name="object_received">Object Accepted</string>
+    <string name="this_is_moveActivity">This is MoveActivity</string>
+</resources>
