@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 
 class DetailCategoryFragment : Fragment(){
@@ -36,6 +37,18 @@ class DetailCategoryFragment : Fragment(){
         btnProfile = view.findViewById(R.id.btn_profile)
         btnShowDialog = view.findViewById(R.id.btn_show_dialog)
 
+        btnShowDialog.setOnClickListener{
+            val mOptionDialogFragment = OptionDialogFragment()
+
+            //pemanggilan fragment dialog form
+            /*
+            * perbedaannya disini menggunakan childFragmentManager, yang merupakan sebuah nested fragment.
+            * Karena OptionDialogFragment dipanggil di dalam sebuah obyek fragment yang telah ada sebelumnya
+            * yaitu DetailCategoryFragment*/
+            val mFragmentManager = childFragmentManager
+            mOptionDialogFragment.show(mFragmentManager, OptionDialogFragment::class.java.simpleName)
+        }
+
         if (savedInstanceState != null){
             val descFromBundle = savedInstanceState.getString(EXTRA_DESCRIPTION)
             description = descFromBundle
@@ -51,5 +64,11 @@ class DetailCategoryFragment : Fragment(){
         }
     }
 
+    //pengimplmentasian interface untuk event setelah menekan tombol adalah memunculkan sebuah Toast
+    internal var optionDialogListener: OptionDialogFragment.OnOptionDialogListener = object : OptionDialogFragment.OnOptionDialogListener {
+        override fun onOptionChosen(text: String?) {
+            Toast.makeText(requireActivity(), text, Toast.LENGTH_SHORT).show()
+        }
+    }
 
 }
