@@ -1,6 +1,8 @@
 package com.dicoding.myflexiblefragment
 
+import android.app.Activity
 import android.os.Bundle
+import android.text.TextUtils.replace
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +38,31 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
+        //action untuk berpindah fragment dari home fragment ke category fragment
+        if (v.id == R.id.btn_category) {
+            //instansiasi objek category fragment
+            val mCategoryFragment = CategoryFragment()
 
+            /*
+            pada kode ini menggunakan parentFragmentManager yang berguna untuk mendapatkan Fragment
+            Manager dari Activity
+            */
+            val mFragmentManager = parentFragmentManager
+            mFragmentManager.beginTransaction().apply {
+                /*ketika inin menempelkan sebuah fragment baru yaitu menggunakan methde replace() bukan add()
+                * Replace ini akan mengganti objek lama dan menambahkan objek baru ke dalam layout
+                *
+                * parameter eprtama yaitu objek fragment saat ini, parameter kedua yaitu objek fragment
+                * yang baru yang akan dimasukan*/
+                replace(R.id.frame_container, mCategoryFragment, CategoryFragment::class.java.simpleName)
+
+                /*
+                * Kita menggunakan fungsi addToBackStack karena objek fragment yang saat ini diciptakan
+                * masuk ke dalam sebuah fragment stack.  Nantinya ketika kita tekan tombol back,
+                * ia akan pop-out keluar dari stack dan menampilkan objek fragment sebelumnya, yaitu HomeFragment.*/
+                addToBackStack(null)
+                commit()
+            }
+        }
     }
 }
