@@ -5,3 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
 
+<!--
+FrameLayout memiliki sifat sebagai berikut: semua komponen view di dalam framelayout bersifat menumpuk.
+Bila pada suatu hirarki framelayout terdapat satu view dengan posisi teratas, maka view tersebut akan
+menjadi alas untuk view di atasnya.
+-->
