@@ -29,6 +29,32 @@ class CategoryFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View) {
         if (v.id == R.id.btn_detail_category){
             //memindahkan data antar fragment
+
+            //instansisasi objek DetailCategoryFragment
+            val mDetailCategoryFragment = DetailCategoryFragment()
+
+            //memindahkan data dengan bundle
+            val mBundle = Bundle()
+            mBundle.putString(DetailCategoryFragment.EXTRA_NAME, "Lifestyle")
+            /*
+            * Pada kode di atas kita menggunakan obyek bundle untuk mengirimkan data antar fragment.
+            * caranya mirip seperti memindahkan data antar activity (intent)*/
+
+            //memindakan data dengan setter dan getter
+            val description = "Kategori ini akan berisi produk-produk lifestyle"
+
+            //memindahkan dari objek bundle ke default properti argument yang dimiliki oleh class
+            mDetailCategoryFragment.arguments = mBundle
+            //memindahkan variable ke properti pada class
+            mDetailCategoryFragment.description = description
+
+            //proses berpindah fragment
+            val mFragmentManager = parentFragmentManager
+            mFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.frame_container, mDetailCategoryFragment, DetailCategoryFragment::class.java.simpleName)
+                addToBackStack(null)
+                commit()
+            }
         }
     }
 }
