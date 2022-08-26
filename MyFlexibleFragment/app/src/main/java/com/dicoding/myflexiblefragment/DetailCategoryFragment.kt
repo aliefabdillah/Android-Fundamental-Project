@@ -74,6 +74,9 @@ class DetailCategoryFragment : Fragment(){
 
             //mengambil data dari properti description
             tvCategoryDescription.text = description
+            /*
+            * NOTES: KETIKA TERJADI PERUBAHAN ORIENTASI LAYAR MAKA DATA YANG ADA PADA BUNDLE TIDAK AKAN
+            * HILANG SEDANGKAN DATA YANG MENGALAMI PEMINDAHAN MELALUI SETTER GETTER AKAN HILANG*/
         }
     }
 
