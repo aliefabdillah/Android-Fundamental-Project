@@ -27,8 +27,7 @@
                 android:src="@drawable/pixel_google" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TextContent.Small.White"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="16dp"
@@ -43,15 +42,12 @@
         </FrameLayout>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            style="@style/TextContent"
             android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             android:text="@string/dummy_value"
-            android:textColor="@android:color/black"
-            android:textSize="32sp" />
+            android:textSize="32sp"
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="match_parent"
@@ -60,14 +56,10 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             android:text="@string/stock"
-            android:textColor="@color/purple_700"
-            android:textSize="12sp" />
+            style="@style/TextContent.Subtitle"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            style="@style/TextContent"
             android:layout_marginBottom="16dp"
             android:lineSpacingMultiplier="1"
             android:text="@string/content_text"
@@ -80,8 +72,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             android:text="@string/spec"
-            android:textColor="@color/purple_700"
-            android:textSize="12sp" />
+            style="@style/TextContent.Subtitle" />
 
         <TableLayout
             android:layout_width="match_parent"
@@ -96,17 +87,12 @@
                 android:layout_marginBottom="16dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    style="@style/TextSpec.Field"
                     android:text="@string/display"
-                    android:textColor="@color/purple_700"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    style="@style/TextSpec.Value"
                     android:text="@string/content_specs_display"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
@@ -118,17 +104,12 @@
                 android:layout_marginBottom="16dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    style="@style/TextSpec.Field"
                     android:text="@string/size"
-                    android:textColor="@color/purple_700"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    style="@style/TextSpec.Value"
                     android:text="@string/content_specs_size"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
@@ -140,20 +121,15 @@
                 android:layout_marginBottom="16dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    style="@style/TextSpec.Field"
                     android:text="@string/battery"
-                    android:textColor="@color/purple_700"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    style="@style/TextSpec.Value"
                     android:text="@string/content_specs_battery"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textColor="@color/black"/>
             </TableRow>
         </TableLayout>
 
@@ -164,8 +140,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="16dp"
             android:text="@string/seller"
-            android:textColor="@color/purple_700"
-            android:textSize="12sp" />
+            style="@style/TextContent.Subtitle" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -183,20 +158,18 @@
                 android:src="@drawable/photo_2" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/TextContent"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/profile_image"
                 android:text="@string/seller_name"
+                android:textSize="14sp"
                 android:textColor="@android:color/black" />
         </RelativeLayout>
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/buy" />
+            style="@style/ButtonGeneral"
+            android:text="@string/buy"
+            android:textSize="14sp"
+            android:textColor="@color/white"/>
     </LinearLayout>
 </ScrollView>
