@@ -1,5 +1,6 @@
 package com.dicoding.myrecyclerview
 
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -55,7 +56,11 @@ class MainActivity : AppCompatActivity() {
         //mengimplementasikan pada recyclerView fungsi click
         listHeroAdapter.setOnItemClickCallback(object : ListHeroAdapter.OnItemClickCallback {
             override fun onItemClicked(data: Hero) {
-                showSelectedHero(data)
+//                showSelectedHero(data)        //menampilkan dalam bentuk toast
+                //menampilkan data ke detailActivity
+                val intentToDetail = Intent(this@MainActivity, DetailActivityHero::class.java)
+                intentToDetail.putExtra("DATA", data)
+                startActivity(intentToDetail)
             }
         })
     }
