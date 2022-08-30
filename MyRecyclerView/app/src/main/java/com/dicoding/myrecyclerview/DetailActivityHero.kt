@@ -1,28 +1,25 @@
 package com.dicoding.myrecyclerview
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.ImageView
-import android.widget.TextView
+import com.dicoding.myrecyclerview.databinding.ActivityDetailHeroBinding
 import java.util.concurrent.Executors
 
 class DetailActivityHero : AppCompatActivity() {
-    private lateinit var fieldDetail: TextView
-    private lateinit var fieldImg: ImageView
+    private lateinit var binding: ActivityDetailHeroBinding
     companion object {
         const val EXTRA_DATA = "extra_data"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_hero)
+        binding = ActivityDetailHeroBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        fieldImg = findViewById(R.id.detail_img)
-        fieldDetail = findViewById(R.id.field_detail_hero)
+        supportActionBar?.title = "Detail Hero"
         val detailHero = intent.getParcelableExtra<Hero>("DATA") as Hero
         val executor = Executors.newSingleThreadExecutor()      //executor to parse the url
         val handler = Handler(Looper.getMainLooper())           //handler untuk load gambar ke UI
@@ -46,7 +43,7 @@ class DetailActivityHero : AppCompatActivity() {
 
                 // Only for making changes in UI
                 handler.post{
-                    fieldImg.setImageBitmap(image)
+                    binding.detailImg.setImageBitmap(image)
                 }
             } catch (e: Exception){
                 e.printStackTrace()
@@ -56,6 +53,6 @@ class DetailActivityHero : AppCompatActivity() {
 
         //menampilkan gambar dari lokal
 //        fieldImg.setImageResource(img)
-        fieldDetail.text = text
+        binding.fieldDetailHero.text = text
     }
 }

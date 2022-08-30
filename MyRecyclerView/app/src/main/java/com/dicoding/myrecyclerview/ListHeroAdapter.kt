@@ -63,7 +63,8 @@ class ListHeroAdapter(private val listHero: ArrayList<Hero>): RecyclerView.Adapt
         holder.binding.tvItemName.text = name
         holder.binding.tvItemDescription.text = description
 
-        //fungsi onClick pada recycler view jika ingin mengimplentasi onclick pada main activity
+        //fungsi onClick pada recycler view jika ingin mengimplentasi onclic  pada main activity
+        //activity akan berpindah ketika user menekan objek apapun yang ada pada container list
         holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listHero[holder.adapterPosition]) }
 
         /*
