@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/navy</item>
         <item name="colorPrimaryVariant">@color/dark_navy</item>
-        <item name="colorOnPrimary">@color/dark_grey</item>
+        <item name="colorOnPrimary">@color/darker_navy</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/white</item>
         <item name="colorSecondaryVariant">@color/navy</item>
@@ -18,9 +18,6 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/navy</item>
         <item name="colorPrimaryVariant">@color/dark_navy</item>
-        <item name="colorOnPrimary">@color/dark_grey</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="colorOnPrimary">@color/darker_navy</item>
     </style>
 </resources>

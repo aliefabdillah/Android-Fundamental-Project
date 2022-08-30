@@ -2,7 +2,7 @@
 <resources>
     <color name="navy">#161B22</color>
     <color name="dark_navy">#0D1117</color>
-    <color name="darker_navy">#020812</color>
+    <color name="darker_navy">#010409</color>
     <color name="dark_grey">#21262D</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

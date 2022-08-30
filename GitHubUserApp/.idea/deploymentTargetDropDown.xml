@@ -6,12 +6,12 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\LENOVO\.android\avd\Device_Emulator_API_22.avd" />
+            <type value="SERIAL_NUMBER" />
+            <value value="9XQGXS69RCHUEICE" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-08-30T15:34:17.004763900Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-08-30T15:53:50.944747900Z" />
   </component>
 </project>

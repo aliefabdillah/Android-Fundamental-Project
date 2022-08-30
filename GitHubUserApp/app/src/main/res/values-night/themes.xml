@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.GitHubUserApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/dark_navy</item>
-        <item name="colorPrimaryVariant">@color/darker_navy</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/navy</item>
+        <item name="colorPrimaryVariant">@color/dark_navy</item>
+        <item name="colorOnPrimary">@color/darker_navy</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/navy</item>
         <item name="colorSecondaryVariant">@color/dark_navy</item>
