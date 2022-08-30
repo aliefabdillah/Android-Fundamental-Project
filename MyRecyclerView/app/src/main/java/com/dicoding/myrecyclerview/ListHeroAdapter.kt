@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.dicoding.myrecyclerview.databinding.ItemRowHeroBinding
 
 class ListHeroAdapter(private val listHero: ArrayList<Hero>): RecyclerView.Adapter<ListHeroAdapter.ListViewHolder>() {
     /*
@@ -17,12 +18,15 @@ class ListHeroAdapter(private val listHero: ArrayList<Hero>): RecyclerView.Adapt
     *
     * Kemudian, hubungan antara satu adapter dengan ViewHolder adalah satu ke banyak. Artinya,
     * satu kelas adapter bisa memiliki lebih dari satu ViewHolder.*/
-    class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //identifikasi properti pada activity item_row_hero
-        var imgPhoto: ImageView = itemView.findViewById(R.id.img_item_photo)
-        var tvName: TextView = itemView.findViewById(R.id.tv_item_name)
-        var tvDescription: TextView = itemView.findViewById(R.id.tv_item_description)
-    }
+//    class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+//        //identifikasi properti pada activity item_row_hero
+//        var imgPhoto: ImageView = itemView.findViewById(R.id.img_item_photo)
+//        var tvName: TextView = itemView.findViewById(R.id.tv_item_name)
+//        var tvDescription: TextView = itemView.findViewById(R.id.tv_item_description)
+//    }
+
+    //menggunakan viewBinding
+    class ListViewHolder(var binding: ItemRowHeroBinding) : RecyclerView.ViewHolder(binding.root)
 
     //variabel menyimpan item yang di click, untuk diimplementasikan ke main
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -36,8 +40,10 @@ class ListHeroAdapter(private val listHero: ArrayList<Hero>): RecyclerView.Adapt
     * Fungsi ini digunakan untuk membuat viewHolder baru yang berisi layout item yang digunakan
     * dalam hal ini yaitu R.layout.item_row_hero. */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_row_hero, parent, false)
-        return ListViewHolder(view)
+        //val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_row_hero, parent, false)
+        //penggunakan menggunakan viewBinding
+        val binding = ItemRowHeroBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ListViewHolder(binding)
     }
 
     /*
@@ -53,9 +59,9 @@ class ListHeroAdapter(private val listHero: ArrayList<Hero>): RecyclerView.Adapt
         Glide.with(holder.itemView.context)
             .load(photo) // URL Gambar
             .circleCrop() // Mengubah image menjadi lingkaran
-            .into(holder.imgPhoto) // imageView mana yang akan diterapkan
-        holder.tvName.text = name
-        holder.tvDescription.text = description
+            .into(holder.binding.imgItemPhoto) // imageView mana yang akan diterapkan
+        holder.binding.tvItemName.text = name
+        holder.binding.tvItemDescription.text = description
 
         //fungsi onClick pada recycler view jika ingin mengimplentasi onclick pada main activity
         holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listHero[holder.adapterPosition]) }
