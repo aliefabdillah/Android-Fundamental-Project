@@ -3,9 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android project/GitHubUserApp/app/src/main/res/drawable/ic_github_logo_w.xml" value="0.169" />
         <entry key="..\:/android project/GitHubUserApp/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1955" />
+        <entry key="..\:/android project/GitHubUserApp/app/src/main/res/layout/activity_detail_user.xml" value="0.25" />
         <entry key="..\:/android project/GitHubUserApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/android project/GitHubUserApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.25" />
+        <entry key="..\:/android project/GitHubUserApp/app/src/main/res/layout/item_row_user.xml" value="0.33" />
         <entry key="..\:/android project/GitHubUserApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1955" />
       </map>
     </option>
