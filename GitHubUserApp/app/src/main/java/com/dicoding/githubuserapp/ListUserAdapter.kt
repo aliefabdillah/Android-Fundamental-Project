@@ -1,5 +1,6 @@
 package com.dicoding.githubuserapp
 
+import android.annotation.SuppressLint
 import android.media.browse.MediaBrowser
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -23,13 +24,14 @@ class ListUserAdapter(private val listUser: ArrayList<User>):
         return ListViewHolder(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val (username, name, repo, followers, photo) = listUser[position]
 
         holder.binding.tvUsername.text = username
         holder.binding.tvFullname.text = name
-        holder.binding.tvRepositories.text = repo + " repositories"
-        holder.binding.tvFollowers.text = followers + " followers"
+        holder.binding.tvRepositories.text = "$repo Repositories"
+        holder.binding.tvFollowers.text = "$followers Followers"
         Glide.with(holder.itemView.context)
             .load(photo)
             .circleCrop()
