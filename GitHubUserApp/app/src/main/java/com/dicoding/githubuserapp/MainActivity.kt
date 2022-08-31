@@ -30,9 +30,16 @@ class MainActivity : AppCompatActivity() {
             val dataRepo = resources.getStringArray(R.array.repository)
             val dataFollowers = resources.getStringArray(R.array.followers)
             val dataPhoto = resources.obtainTypedArray(R.array.user_img)
+            val dataFollowing = resources.getStringArray(R.array.following)
+            val dataCompany = resources.getStringArray(R.array.company)
+            val dataLocation = resources.getStringArray(R.array.location)
+            val dataEmail = resources.getStringArray(R.array.email)
+
             val listUser = ArrayList<User>()
+
             for (i in dataUsername.indices){
-                val user = User(dataUsername[i], dataName[i], dataRepo[i], dataFollowers[i], dataPhoto.getResourceId(i,-1))
+                val user = User(dataUsername[i], dataName[i], dataRepo[i], dataFollowers[i], dataPhoto.getResourceId(i,-1),
+                    dataFollowing[i], dataCompany[i], dataLocation[i], dataEmail[i])
                 listUser.add(user)
             }
 
@@ -50,8 +57,9 @@ class MainActivity : AppCompatActivity() {
         rvUser.adapter = listUserAdapter
 
         listUserAdapter.setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback{
-            override fun onItemClicked(data: User) {
+            override fun onItemClicked(dataUser: User) {
                 val iToDetail = Intent(this@MainActivity, DetailUserActivity::class.java)
+                iToDetail.putExtra(DetailUserActivity.EXTRA_DATA, dataUser)
                 startActivity(iToDetail)
             }
         })

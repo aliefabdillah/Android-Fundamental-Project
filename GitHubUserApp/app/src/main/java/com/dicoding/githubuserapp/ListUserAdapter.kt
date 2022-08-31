@@ -1,7 +1,6 @@
 package com.dicoding.githubuserapp
 
 import android.annotation.SuppressLint
-import android.media.browse.MediaBrowser
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

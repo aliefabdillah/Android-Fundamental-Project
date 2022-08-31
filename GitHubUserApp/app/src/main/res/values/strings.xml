@@ -3,6 +3,18 @@
     <string name="username">Username</string>
     <string name="name">Name</string>
     <string name="null_num">NULL</string>
+    <string name="more_detail">More Detail :</string>
+    <string name="data_more_detail">Data_More_Detail</string>
+    <string name="followers">Followers</string>
+    <string name="followings">Followings</string>
+    <string name="repository">- Repository</string>
+    <string name="company">- Company</string>
+    <string name="location">- Location</string>
+    <string name="email">- Email</string>
+    <string name="data_repo">Data_Repo</string>
+    <string name="data_company">Data_company</string>
+    <string name="data_location">Data_location</string>
+    <string name="data_email">Data_email</string>
 
     <string-array name="username">
         <item>jakewharton</item>
@@ -93,6 +105,19 @@
         <item>23</item>
         <item>61</item>
         <item>10</item>
+    </string-array>
+
+    <string-array name="email">
+        <item>a@gmail.com</item>
+        <item>b@gmail.com</item>
+        <item>c@gmail.com</item>
+        <item>d@gmail.com</item>
+        <item>e@gmail.com</item>
+        <item>f@gmail.com</item>
+        <item>g@gmail.com</item>
+        <item>h@gmail.com</item>
+        <item>i@gmail.com</item>
+        <item>j@gmail.com</item>
     </string-array>
 
     <integer-array name="user_img">
