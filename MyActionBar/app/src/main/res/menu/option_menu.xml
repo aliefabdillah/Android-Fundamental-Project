@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--  Tag group digunakan untuk mengelompokan item yang akan ditampilkan pada action bar
+      Perhatikan tag <item>. Dengan menggunakan android:icon kita dapat mengganti ikon pada item
+      action bar dengan ikon yang berbeda.
+        Terdapat 5 kondisi yang dapat dipasang pada tag app:showAsAction:
+
+        -ifRoom, akan menampilkan action ketika ada ruangan pada action bar.
+        -withText, akan menampilkan actionitem beserta judulnya.
+        -never, tidak akan pernah ditampilkan pada action bar dan hanya akan ditampilkan pada overflow menu.
+        -always, akan selalu tampil pada action bar.
+        -collapseActionView, berhubungan dengan komponen collapsible .
+
+      -->
+    <group android:menuCategory="container" >
+        <item android:id="@+id/menu1"
+            android:title="@string/menu_1"
+            android:icon="@drawable/ic_baseline_announcement_24"
+            app:showAsAction="always" />
+        <item android:id="@+id/menu2"
+            android:title="@string/menu_2" />
+    </group>
+</menu>
