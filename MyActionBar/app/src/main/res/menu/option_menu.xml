@@ -14,6 +14,22 @@
         -collapseActionView, berhubungan dengan komponen collapsible .
 
       -->
+
+    <!--
+    Elemen showAsAction menggunakan 2 pilihan, yaitu collapseActionView dan always.
+    collapseActionView akan menunjukkan bahwa item bersifat collapsible, sehingga dapat disembunyikan.
+    Sementara itu, always akan membuat icon item selalu ditampilkan.
+
+    Elemen actionViewClass menggunakan androidx.appcompat.widget.SearchView yang merupakan
+    widget searchview bawaan Android AppCompat Library yang mudah digunakan.
+    -->
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/search"
+        app:showAsAction="collapseActionView|always"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+
     <group android:menuCategory="container" >
         <item android:id="@+id/menu1"
             android:title="@string/menu_1"
