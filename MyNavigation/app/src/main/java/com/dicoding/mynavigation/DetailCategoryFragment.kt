@@ -24,8 +24,12 @@ class DetailCategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //mengambil data dari fragment lain
-        val dataName = arguments?.getString(CategoryFragment.EXTRA_NAME)
-        val dataStock = arguments?.getLong(CategoryFragment.EXTRA_STOCK)
+//        val dataName = arguments?.getString(CategoryFragment.EXTRA_NAME)
+//        val dataStock = arguments?.getLong(CategoryFragment.EXTRA_STOCK)
+
+        //mengambil data dari safeargs
+        val dataName = DetailCategoryFragmentArgs.fromBundle(arguments as Bundle).name
+        val dataStock = DetailCategoryFragmentArgs.fromBundle(arguments as Bundle).stock
 
         binding.tvCategoryName.text = dataName
         binding.tvCategoryDescription.text = "Stock : $dataStock"

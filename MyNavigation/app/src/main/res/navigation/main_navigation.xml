@@ -33,9 +33,19 @@
         android:name="com.dicoding.mynavigation.ProfileActivity"
         android:label="activity_profile"
         tools:layout="@layout/activity_profile" />
+
     <fragment
         android:id="@+id/detailCategoryFragment"
         android:name="com.dicoding.mynavigation.DetailCategoryFragment"
         android:label="fragment_detail_category"
-        tools:layout="@layout/fragment_detail_category" />
+        tools:layout="@layout/fragment_detail_category" >
+        <argument
+            android:name="name"
+            app:argType="string"
+            android:defaultValue="Default Name" />
+        <argument
+            android:name="stock"
+            app:argType="long"
+            android:defaultValue="0L" />
+    </fragment>
 </navigation>
