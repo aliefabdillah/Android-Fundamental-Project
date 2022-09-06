@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.dicoding.mynavigation.databinding.FragmentDetailCategoryBinding
 
 class DetailCategoryFragment : Fragment() {
@@ -33,6 +35,11 @@ class DetailCategoryFragment : Fragment() {
 
         binding.tvCategoryName.text = dataName
         binding.tvCategoryDescription.text = "Stock : $dataStock"
+
+        //memanggil action back ke home fragment
+        binding.btnProfile.setOnClickListener { view ->
+            view.findNavController().navigate(R.id.action_detailCategoryFragment_to_homeFragment)
+        }
     }
 
     override fun onDestroy() {
