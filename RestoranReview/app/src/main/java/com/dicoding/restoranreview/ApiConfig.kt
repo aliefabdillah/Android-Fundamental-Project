@@ -5,6 +5,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/*
+* class untuk konfigurasi Retrofit
+*
+* Dengan membuat class ini, Anda tidak perlu menyiapkan Retrofit pada setiap class yang akan
+* menggunakan Retrofit. Anda hanya cukup memanggil ApiConfig.getApiService().*/
 class ApiConfig {
     companion object {
         fun getApiService(): ApiService {
