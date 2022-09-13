@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,9 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    /*Deklarasi variabel untuk sinkronisasi viewmodel menggunakan library KTX*/
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +37,9 @@ class MainActivity : AppCompatActivity() {
         binding.rvReview.addItemDecoration(itemDecoration)
 
         //connect view model to activity
-        val mainViewModel = ViewModelProvider(this@MainActivity)[MainViewModel::class.java]
+        /*
+        * karena sudah menggunakan ktx maka kode ini tidak perlu lagi*/
+//        val mainViewModel = ViewModelProvider(this@MainActivity)[MainViewModel::class.java]
 
         //komponen observer data restaurant
         mainViewModel.restaurant.observe(
