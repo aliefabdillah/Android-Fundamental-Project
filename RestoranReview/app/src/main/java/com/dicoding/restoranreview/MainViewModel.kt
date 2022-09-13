@@ -26,8 +26,10 @@ class MainViewModel : ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
 
     //variabel live data untuk snack bar
-    private val _snackbarText = MutableLiveData<String>()
-    val snackbarText: LiveData<String> = _snackbarText
+    /*
+    * Variaebel variabel string dibungkus oleh wrapper yang telah dibuat*/
+    private val _snackbarText = MutableLiveData<Event<String>>()
+    val snackbarText: LiveData<Event<String>> = _snackbarText
 
     companion object {
         private const val TAG = "MainViewModel"
@@ -82,7 +84,7 @@ class MainViewModel : ViewModel() {
                 _isLoading.value = false
                 if (response.isSuccessful){
                     _listReview.value = response.body()?.customerReviews        //menyimpan nilai customer review dari API ke variabel live data
-                    _snackbarText.value = response.body()?.message              //menampilkan pesan dari API ketika berhasil Post Review
+                    _snackbarText.value = Event(response.body()?.message.toString())              //menyimpan pesan dari API ketika berhasil Post Review dengan inisialisasi wrapper yang telah dibuat
                 }else{
                     Log.e(TAG, "onFailure : ${response.message()}")
                 }

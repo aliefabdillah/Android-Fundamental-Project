@@ -61,8 +61,16 @@ class MainActivity : AppCompatActivity() {
 
         //komponen observer snackbar
         mainViewModel.snackbarText.observe(this@MainActivity,) {
-            /*Menampilkan snackbar*/
-            Snackbar.make(window.decorView.rootView, it, Snackbar.LENGTH_SHORT).show()
+            /*Menampilkan snackbar
+            *
+            * getContentIfNotHandler merupakan method dari wrapper Event untuk mengecek apakah aksi
+            * snackbar pernah dilakukan sebelumnya atau tidak pada live data
+            *
+            * Secara otomatis ketika aksi sudah pernah dilakukan sebelumnya, maka return dari method
+            * akan menghasilkan null.*/
+            it.getContentIfNotHandled()?.let { snackbarText ->
+                Snackbar.make(window.decorView.rootView, snackbarText, Snackbar.LENGTH_SHORT).show()
+            }
         }
 
         //handler button ketika di clikc
