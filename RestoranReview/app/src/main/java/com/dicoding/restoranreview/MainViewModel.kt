@@ -25,6 +25,10 @@ class MainViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    //variabel live data untuk snack bar
+    private val _snackbarText = MutableLiveData<String>()
+    val snackbarText: LiveData<String> = _snackbarText
+
     companion object {
         private const val TAG = "MainViewModel"
         private const val RESTAURANT_ID = "uewq1zg2zlskfw1e867"
@@ -78,6 +82,7 @@ class MainViewModel : ViewModel() {
                 _isLoading.value = false
                 if (response.isSuccessful){
                     _listReview.value = response.body()?.customerReviews        //menyimpan nilai customer review dari API ke variabel live data
+                    _snackbarText.value = response.body()?.message              //menampilkan pesan dari API ketika berhasil Post Review
                 }else{
                     Log.e(TAG, "onFailure : ${response.message()}")
                 }

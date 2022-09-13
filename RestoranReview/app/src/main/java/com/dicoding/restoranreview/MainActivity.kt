@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.dicoding.restoranreview.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Response
 
@@ -56,6 +57,12 @@ class MainActivity : AppCompatActivity() {
             this@MainActivity,
         ){
             showLoading(it)
+        }
+
+        //komponen observer snackbar
+        mainViewModel.snackbarText.observe(this@MainActivity,) {
+            /*Menampilkan snackbar*/
+            Snackbar.make(window.decorView.rootView, it, Snackbar.LENGTH_SHORT).show()
         }
 
         //handler button ketika di clikc
