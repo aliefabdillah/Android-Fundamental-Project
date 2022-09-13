@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 
 class HomeFragment : Fragment(), View.OnClickListener {
 
@@ -48,20 +49,28 @@ class HomeFragment : Fragment(), View.OnClickListener {
             Manager dari Activity
             */
             val mFragmentManager = parentFragmentManager
+            /*
+            Tanpa KTX
             mFragmentManager.beginTransaction().apply {
-                /*ketika inin menempelkan sebuah fragment baru yaitu menggunakan methde replace() bukan add()
+                *//*ketika inin menempelkan sebuah fragment baru yaitu menggunakan methde replace() bukan add()
                 * Replace ini akan mengganti objek lama dan menambahkan objek baru ke dalam layout
                 *
                 * parameter eprtama yaitu objek fragment saat ini, parameter kedua yaitu objek fragment
-                * yang baru yang akan dimasukan*/
+                * yang baru yang akan dimasukan*//*
                 replace(R.id.frame_container, mCategoryFragment, CategoryFragment::class.java.simpleName)
 
-                /*
+                *//*
                 * Kita menggunakan fungsi addToBackStack karena objek fragment yang saat ini diciptakan
                 * masuk ke dalam sebuah fragment stack.  Nantinya ketika kita tekan tombol back,
-                * ia akan pop-out keluar dari stack dan menampilkan objek fragment sebelumnya, yaitu HomeFragment.*/
+                * ia akan pop-out keluar dari stack dan menampilkan objek fragment sebelumnya, yaitu HomeFragment.*//*
                 addToBackStack(null)
                 commit()
+            }*/
+
+            /*dengan KTX*/
+            mFragmentManager.commit {
+                addToBackStack(null)
+                replace(R.id.frame_container, mCategoryFragment, CategoryFragment::class.java.simpleName)
             }
         }
     }
