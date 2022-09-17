@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.githubapiapp.databinding.ItemRowUserBinding
 
-class ListUserAdapter(private val listUser: ArrayList<User>):
+class ListUserAdapter(private val listUser: List<UserItems>):
     RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
 
     class ListViewHolder(var binding: ItemRowUserBinding): RecyclerView.ViewHolder(binding.root)
@@ -25,18 +25,18 @@ class ListUserAdapter(private val listUser: ArrayList<User>):
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (username, name, repo, followers, photo) = listUser[position]
-
-        holder.binding.tvUsername.text = username
-        holder.binding.tvFullname.text = name
-        holder.binding.tvRepositories.text = "$repo Repositories"
-        holder.binding.tvFollowers.text = "$followers Followers"
+        val user = listUser[position]
+        holder.binding.tvUsername.text = user.login
+        holder.binding.tvFullname.text = user.login.uppercase()
+//        holder.binding.tvRepositories.text = "${user.reposUrl} Repositories"
+//        holder.binding.tvFollowers.text = "${user.followersUrl} Followers"
         Glide.with(holder.itemView.context)
-            .load(photo)
+            .load(user.avatarUrl)
             .circleCrop()
             .into(holder.binding.imgItem)
 
         holder.binding.imgItem.setOnClickListener {
+//            onItemClickCallback.onItemClicked(listUser[holder.adapterPosition])
             onItemClickCallback.onItemClicked(listUser[holder.adapterPosition])
         }
     }
@@ -44,6 +44,6 @@ class ListUserAdapter(private val listUser: ArrayList<User>):
     override fun getItemCount(): Int = listUser.size
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: User)
+        fun onItemClicked(data: UserItems)
     }
 }

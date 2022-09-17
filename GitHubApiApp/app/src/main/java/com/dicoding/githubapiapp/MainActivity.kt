@@ -1,67 +1,91 @@
 package com.dicoding.githubapiapp
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dicoding.githubapiapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var rvUser: RecyclerView
-    private var list = ArrayList<User>()
+
+    private lateinit var binding: ActivityMainBinding
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        rvUser = findViewById(R.id.rv_user)
-        rvUser.setHasFixedSize(true)
-
-        list.addAll(listUsers)
-        showRecyclerList()
-    }
-
-    private val listUsers: ArrayList<User>
-        get() {
-            val dataUsername = resources.getStringArray(R.array.username)
-            val dataName = resources.getStringArray(R.array.name)
-            val dataRepo = resources.getStringArray(R.array.repository)
-            val dataFollowers = resources.getStringArray(R.array.followers)
-            val dataPhoto = resources.obtainTypedArray(R.array.user_img)
-            val dataFollowing = resources.getStringArray(R.array.following)
-            val dataCompany = resources.getStringArray(R.array.company)
-            val dataLocation = resources.getStringArray(R.array.location)
-            val dataEmail = resources.getStringArray(R.array.email)
-
-            val listUser = ArrayList<User>()
-
-            for (i in dataUsername.indices){
-                val user = User(dataUsername[i], dataName[i], dataRepo[i], dataFollowers[i], dataPhoto.getResourceId(i,-1),
-                    dataFollowing[i], dataCompany[i], dataLocation[i], dataEmail[i])
-                listUser.add(user)
-            }
-
-            return listUser
-        }
-
-    private fun showRecyclerList() {
+        val layoutManager : RecyclerView.LayoutManager
+        val itemDecoration : DividerItemDecoration
         if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            rvUser.layoutManager = GridLayoutManager(this, 2)
+            layoutManager = GridLayoutManager(this, 2)
+            binding.rvUser.layoutManager = layoutManager
+            itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
+            binding.rvUser.addItemDecoration(itemDecoration)
+
         }else{
-            rvUser.layoutManager = LinearLayoutManager(this)
+            layoutManager = LinearLayoutManager(this)
+            binding.rvUser.layoutManager = layoutManager
+            itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
+            binding.rvUser.addItemDecoration(itemDecoration)
         }
 
-        val listUserAdapter = ListUserAdapter(list)
-        rvUser.adapter = listUserAdapter
+        binding.rvUser.setHasFixedSize(true)
 
-        listUserAdapter.setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback{
-            override fun onItemClicked(dataUser: User) {
-                val iToDetail = Intent(this@MainActivity, DetailUserActivity::class.java)
-                iToDetail.putExtra(DetailUserActivity.EXTRA_DATA, dataUser)
-                startActivity(iToDetail)
-            }
-        })
+        mainViewModel.listUserData.observe(
+            this@MainActivity
+        ){ listUser ->
+            showSearchResult(listUser)
+        }
+
+        mainViewModel.isLoading.observe(
+            this@MainActivity
+        ){
+            showLoading(it)
+        }
+
+        binding.searchBtn.setOnClickListener { view ->
+            mainViewModel.findUser(binding.searchInputUser.text.toString())
+        }
+
+//        showRecyclerList()
     }
+
+    private fun showSearchResult(resultUser: List<UserItems>){
+        val adapter = ListUserAdapter(resultUser)
+        binding.rvUser.adapter = adapter
+        binding.searchInputUser.setText("")
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
+
+//    private fun showRecyclerList() {
+
+//
+//        val listUserAdapter = ListUserAdapter(list)
+//        binding.rvUser.adapter = listUserAdapter
+//
+//        listUserAdapter.setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback{
+//            override fun onItemClicked(dataUser: User) {
+//                val iToDetail = Intent(this@MainActivity, DetailUserActivity::class.java)
+//                iToDetail.putExtra(DetailUserActivity.EXTRA_DATA, dataUser)
+//                startActivity(iToDetail)
+//            }
+//        })
+//    }
 }

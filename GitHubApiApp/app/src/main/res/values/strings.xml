@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GitHub User App</string>
+    <string name="app_name">GitHub API App</string>
     <string name="username">Username</string>
     <string name="name">Name</string>
     <string name="null_num">NULL</string>
@@ -15,6 +15,8 @@
     <string name="data_company">Data_company</string>
     <string name="data_location">Data_location</string>
     <string name="data_email">Data_email</string>
+    <string name="cari">Cari</string>
+    <string name="masukan_username">Masukan Username...</string>
 
     <string-array name="username">
         <item>jakewharton</item>
