@@ -9,11 +9,17 @@ import retrofit2.Response
 
 class MainViewModel : ViewModel() {
     /* Backing property */
-    private val _listUserData = MutableLiveData<List<UserItems>>()
-    val listUserData: LiveData<List<UserItems>> = _listUserData
+    private val _listUserData = MutableLiveData<List<Users>>()
+    val listUserData: LiveData<List<Users>> = _listUserData
+
+    private val _detailUsers = MutableLiveData<UsersDetailsResponse>()
+    val detailUsers: LiveData<UsersDetailsResponse> = _detailUsers
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _toastText = MutableLiveData<EventHandlerToast<String>>()
+    val toastText: LiveData<EventHandlerToast<String>> = _toastText
 
     companion object {
         private const val TAG = "MainViewModel"
@@ -30,9 +36,12 @@ class MainViewModel : ViewModel() {
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _listUserData.value = response.body()?.items
+                    if (response.body()?.totalCount == 0){
+                        _toastText.value = EventHandlerToast("Username Not Found")
+                    }else{
+                        _listUserData.value = response.body()?.items
+                    }
                 }else {
-                    println(_listUserData.value)
                     Log.e(TAG, "OnFailure in Response Method: ${response.message()}")
                 }
             }
@@ -45,4 +54,28 @@ class MainViewModel : ViewModel() {
         })
     }
 
+    fun getUserSearch(username : String) {
+        _isLoading.value = true
+        val clientDetails = GithubApiConfig.getApiService().getDetailsData(username)
+
+        clientDetails.enqueue(object : retrofit2.Callback<UsersDetailsResponse> {
+            override fun onResponse(
+                call: Call<UsersDetailsResponse>,
+                response: Response<UsersDetailsResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful) {
+                    _detailUsers.value = response.body()
+                }else {
+                    Log.e(TAG, "OnFailure in Response Method: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<UsersDetailsResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e(TAG, "OnFailure in Failure Method: ${t.message}")
+            }
+
+        })
+    }
 }

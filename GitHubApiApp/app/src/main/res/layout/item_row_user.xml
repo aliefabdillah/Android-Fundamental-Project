@@ -46,44 +46,34 @@
             card_view:layout_constraintTop_toTopOf="@id/img_item" />
 
         <TextView
-            android:id="@+id/tv_fullname"
+            android:id="@+id/tv_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
-            android:text="@string/name"
+            android:text="@string/data_id"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="11sp"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/img_item"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_username" />
 
         <TextView
-            android:id="@+id/tv_repositories"
+            android:id="@+id/tvUrl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:text="@string/null_num"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            card_view:layout_constraintStart_toEndOf="@+id/img_item"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_fullname" />
-
-        <TextView
-            android:id="@+id/tv_followers"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
-            android:text="@string/null_num"
+            android:text="@string/html_url"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textSize="11sp"
+            android:autoLink="web"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toEndOf="@+id/tv_repositories"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_fullname" />
+            card_view:layout_constraintStart_toEndOf="@+id/img_item"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_id" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

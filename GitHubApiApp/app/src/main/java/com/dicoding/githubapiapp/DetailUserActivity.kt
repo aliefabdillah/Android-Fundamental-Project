@@ -16,22 +16,22 @@ class DetailUserActivity : AppCompatActivity() {
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val detailUser = intent.getParcelableExtra<User>(EXTRA_DATA) as User
+        val detailUser = intent.getParcelableExtra<Users>(EXTRA_DATA) as Users
         Glide.with(this@DetailUserActivity)
-            .load(detailUser.photo)
+            .load(detailUser.avatarUrl)
             .circleCrop()
             .into(binding.imageDetail)
 
-        binding.tvUsernameDetail.text = detailUser.username
-        binding.tvNameDetail.text = detailUser.fullname
+        binding.tvUsernameDetail.text = detailUser.login
+//        binding.tvNameDetail.text = detailUser
 
-        binding.tvFollowersDetail.text = fromHtml("<b>${detailUser.followers}</b><br>Followers")
-        binding.tvFollowingsDetail.text = fromHtml("<b>${detailUser.following}</b><br>Followings")
-
-        binding.fieldRepo.text = ": ${detailUser.repositories}"
-        binding.fieldCompany.text = ": ${detailUser.company}"
-        binding.fieldLocation.text = ": ${detailUser.location}"
-        binding.fieldEmail.text = ": ${detailUser.email}"
+//        binding.tvFollowersDetail.text = fromHtml("<b>${detailUser.}</b><br>Followers")
+//        binding.tvFollowingsDetail.text = fromHtml("<b>${detailUser.following}</b><br>Followings")
+//
+//        binding.fieldRepo.text = ": ${detailUser.repositories}"
+//        binding.fieldCompany.text = ": ${detailUser.company}"
+//        binding.fieldLocation.text = ": ${detailUser.location}"
+//        binding.fieldEmail.text = ": ${detailUser.email}"
     }
 
     companion object {
