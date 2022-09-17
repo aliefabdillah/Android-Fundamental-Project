@@ -41,7 +41,7 @@ class ListUserAdapter(private val listUser: List<UserItems>):
         }
     }
 
-    override fun getItemCount(): Int = listUser.size
+    override fun getItemCount(): Int = listUser .size
 
     interface OnItemClickCallback {
         fun onItemClicked(data: UserItems)
