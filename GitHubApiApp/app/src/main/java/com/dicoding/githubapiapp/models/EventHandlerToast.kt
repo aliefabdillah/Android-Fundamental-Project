@@ -1,4 +1,4 @@
-package com.dicoding.githubapiapp
+package com.dicoding.githubapiapp.models
 
 open class EventHandlerToast<out T>(private val content: T) {
     @Suppress("MemberVisibilityCanBePrivate")

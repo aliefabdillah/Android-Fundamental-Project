@@ -10,13 +10,14 @@
     <string name="repository">- Repository</string>
     <string name="company">- Company</string>
     <string name="location">- Location</string>
-    <string name="email">- Email</string>
+    <string name="email">- Blog</string>
     <string name="data_repo">Data_Repo</string>
     <string name="data_company">Data_company</string>
     <string name="data_location">Data_location</string>
-    <string name="data_email">Data_email</string>
+    <string name="data_email">Data_blog</string>
     <string name="cari">Cari</string>
     <string name="masukan_username">Masukan Username…</string>
     <string name="data_id">data_id</string>
     <string name="html_url">html_url</string>
+    <string name="content_tab_text">This is Tab %1$d</string>
 </resources>

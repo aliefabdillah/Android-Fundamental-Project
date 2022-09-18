@@ -1,5 +1,6 @@
-package com.dicoding.githubapiapp
+package com.dicoding.githubapiapp.api
 
+import com.dicoding.githubapiapp.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

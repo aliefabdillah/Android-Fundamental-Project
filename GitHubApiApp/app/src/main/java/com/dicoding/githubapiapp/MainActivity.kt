@@ -15,34 +15,23 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dicoding.githubapiapp.api.Users
+import com.dicoding.githubapiapp.api.UsersDetailsResponse
 import com.dicoding.githubapiapp.databinding.ActivityMainBinding
+import com.dicoding.githubapiapp.models.ListUserAdapter
+import com.dicoding.githubapiapp.models.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var dataDetails: UsersDetailsResponse? = null
+
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val layoutManager : RecyclerView.LayoutManager
-        val itemDecoration : DividerItemDecoration
-        if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            layoutManager = GridLayoutManager(this, 2)
-            binding.rvUser.layoutManager = layoutManager
-            itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-            binding.rvUser.addItemDecoration(itemDecoration)
-
-        }else{
-            layoutManager = LinearLayoutManager(this)
-            binding.rvUser.layoutManager = layoutManager
-            itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-            binding.rvUser.addItemDecoration(itemDecoration)
-        }
-
-        binding.rvUser.setHasFixedSize(true)
 
         mainViewModel.listUserData.observe(
             this@MainActivity
@@ -60,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             this@MainActivity
         ){
            it.getContentIfNotHandled()?.let { toastText ->
-               Toast.makeText(this@MainActivity, "Username Not Found", Toast.LENGTH_LONG).show()
+               Toast.makeText(this@MainActivity, toastText, Toast.LENGTH_LONG).show()
            }
         }
     }
@@ -94,7 +83,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showSearchResult(resultUser: List<Users>){
+        val layoutManager : RecyclerView.LayoutManager
+        val itemDecoration : DividerItemDecoration
+        if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            layoutManager = GridLayoutManager(this, 2)
+            binding.rvUser.layoutManager = layoutManager
+            itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
+            binding.rvUser.addItemDecoration(itemDecoration)
 
+        }else{
+            layoutManager = LinearLayoutManager(this)
+            binding.rvUser.layoutManager = layoutManager
+            itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
+            binding.rvUser.addItemDecoration(itemDecoration)
+        }
+
+        binding.rvUser.setHasFixedSize(true)
 
         val adapter = ListUserAdapter(resultUser)
         binding.rvUser.adapter = adapter
@@ -115,18 +119,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private fun showRecyclerList() {
-
-//
-//        val listUserAdapter = ListUserAdapter(list)
-//        binding.rvUser.adapter = listUserAdapter
-//
-//        listUserAdapter.setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback{
-//            override fun onItemClicked(dataUser: User) {
-//                val iToDetail = Intent(this@MainActivity, DetailUserActivity::class.java)
-//                iToDetail.putExtra(DetailUserActivity.EXTRA_DATA, dataUser)
-//                startActivity(iToDetail)
-//            }
-//        })
-//    }
+    companion object {
+        var LOGIN = "TES"
+    }
 }

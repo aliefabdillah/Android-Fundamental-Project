@@ -1,9 +1,13 @@
-package com.dicoding.githubapiapp
+package com.dicoding.githubapiapp.models
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dicoding.githubapiapp.api.GithubApiConfig
+import com.dicoding.githubapiapp.api.GithubResponse
+import com.dicoding.githubapiapp.api.Users
+import com.dicoding.githubapiapp.api.UsersDetailsResponse
 import retrofit2.Call
 import retrofit2.Response
 
@@ -20,10 +24,6 @@ class MainViewModel : ViewModel() {
 
     private val _toastText = MutableLiveData<EventHandlerToast<String>>()
     val toastText: LiveData<EventHandlerToast<String>> = _toastText
-
-    companion object {
-        private const val TAG = "MainViewModel"
-    }
 
     fun findUser(username : String) {
         _isLoading.value = true
@@ -54,7 +54,7 @@ class MainViewModel : ViewModel() {
         })
     }
 
-    fun getUserSearch(username : String) {
+    fun getUserDetails(username : String) {
         _isLoading.value = true
         val clientDetails = GithubApiConfig.getApiService().getDetailsData(username)
 
@@ -67,7 +67,7 @@ class MainViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _detailUsers.value = response.body()
                 }else {
-                    Log.e(TAG, "OnFailure in Response Method: ${response.message()}")
+                    Log.e(TAG, "OnFailure in Response Method Details: ${response.message()}")
                 }
             }
 
@@ -77,5 +77,9 @@ class MainViewModel : ViewModel() {
             }
 
         })
+    }
+
+    companion object {
+        private const val TAG = "MainViewModel"
     }
 }

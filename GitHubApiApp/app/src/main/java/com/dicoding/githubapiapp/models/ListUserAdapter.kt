@@ -1,17 +1,13 @@
-package com.dicoding.githubapiapp
+package com.dicoding.githubapiapp.models
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.dicoding.githubapiapp.MainActivity.Companion.LOGIN
+import com.dicoding.githubapiapp.api.Users
 import com.dicoding.githubapiapp.databinding.ItemRowUserBinding
-import kotlinx.coroutines.NonDisposableHandle.parent
 
 class ListUserAdapter(private val listUser: List<Users>):
     RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
@@ -40,6 +36,7 @@ class ListUserAdapter(private val listUser: List<Users>):
             .circleCrop()
             .into(holder.binding.imgItem)
 
+        LOGIN = user.login
         holder.binding.imgItem.setOnClickListener {
             onItemClickCallback.onItemClicked(listUser[holder.adapterPosition])
         }
