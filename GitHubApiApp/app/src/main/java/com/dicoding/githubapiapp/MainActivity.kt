@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.githubapiapp.api.Users
-import com.dicoding.githubapiapp.api.UsersDetailsResponse
 import com.dicoding.githubapiapp.databinding.ActivityMainBinding
 import com.dicoding.githubapiapp.models.ListUserAdapter
 import com.dicoding.githubapiapp.models.MainViewModel
@@ -24,7 +23,6 @@ import com.dicoding.githubapiapp.models.MainViewModel
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private var dataDetails: UsersDetailsResponse? = null
 
     private val mainViewModel: MainViewModel by viewModels()
 

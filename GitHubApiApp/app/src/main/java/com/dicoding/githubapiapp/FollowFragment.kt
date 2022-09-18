@@ -5,31 +5,59 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.githubapiapp.api.FollsResponseItem
+import com.dicoding.githubapiapp.databinding.FragmentFollowBinding
+import com.dicoding.githubapiapp.models.MainViewModel
+import com.dicoding.githubapiapp.models.UserFollsAdapter
 
 class FollowFragment : Fragment(){
+    private lateinit var binding: FragmentFollowBinding
+    private val mainViewModel: MainViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_follow, container, false)
+    ): View {
+        binding = FragmentFollowBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val tvContent: TextView = view.findViewById(R.id.section_label)
-        val index = arguments?.getInt(ARG_SECTION_NUMBER, 0)
-        val name = arguments?.getString(ARG_NAME)
+        val username = arguments?.getString(ARG_NAME)
+        val paramService = arguments?.getString(PARAM_SERVICE)
 
-//        tvContent.text = getString(R.string.content_tab_text, index)
-        tvContent.text = name
+        if (username != null && paramService != null) {
+            mainViewModel.getFolls(username, paramService)
+        }
+
+        mainViewModel.listFollowersData.observe(
+            requireActivity()
+        ){ followers ->
+            createListFolls(followers)
+        }
 
     }
 
+    private fun createListFolls(listFollowers: List<FollsResponseItem>){
+        val layoutManager = LinearLayoutManager(requireActivity())
+        binding.rvUserDetails.layoutManager = layoutManager
+        val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
+        binding.rvUserDetails.addItemDecoration(itemDecoration)
+
+        binding.rvUserDetails.setHasFixedSize(true)
+
+        val detailsAdapter = UserFollsAdapter(listFollowers)
+        binding.rvUserDetails.adapter = detailsAdapter
+    }
+
     companion object {
-        const val ARG_SECTION_NUMBER = "section_number"
-        const val ARG_NAME = "app_name"
+        const val PARAM_SERVICE = "null"
+        var ARG_NAME = "username"
     }
 }

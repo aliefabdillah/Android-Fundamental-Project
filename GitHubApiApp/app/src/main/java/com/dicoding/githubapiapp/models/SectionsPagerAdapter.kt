@@ -7,7 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.dicoding.githubapiapp.FollowFragment
 
 class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
-    var appName: String = ""
+    var username: String = ""
 
     override fun getItemCount(): Int {
         return 2
@@ -16,8 +16,11 @@ class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(a
     override fun createFragment(position: Int): Fragment {
         val fragment = FollowFragment()
         fragment.arguments = Bundle().apply {
-            putInt(FollowFragment.ARG_SECTION_NUMBER, position + 1)
-            putString(FollowFragment.ARG_NAME, appName)
+            putString(FollowFragment.ARG_NAME, username)
+            when(position){
+                0 -> putString(FollowFragment.PARAM_SERVICE, "followers")
+                1 -> putString(FollowFragment.PARAM_SERVICE, "following")
+            }
         }
 
         return fragment

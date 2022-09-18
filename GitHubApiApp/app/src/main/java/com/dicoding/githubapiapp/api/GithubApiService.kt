@@ -17,4 +17,10 @@ interface GithubApiService {
     fun getDetailsData(
         @Path("login") login: String
     ): Call<UsersDetailsResponse>
+
+    @GET("users/{login}/{folls}")
+    fun getFollowersData(
+        @Path("login") login: String,
+        @Path("folls") params: String
+    ): Call<List<FollsResponseItem>>
 }

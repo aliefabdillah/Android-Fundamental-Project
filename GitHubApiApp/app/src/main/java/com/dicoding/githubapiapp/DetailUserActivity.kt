@@ -3,6 +3,7 @@ package com.dicoding.githubapiapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html.fromHtml
+import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import com.bumptech.glide.Glide
@@ -22,8 +23,6 @@ class DetailUserActivity : AppCompatActivity() {
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        createTabsLayout()
-
         val detailsUser= intent.getParcelableExtra<Users>(EXTRA_DATA) as Users
         Glide.with(this@DetailUserActivity)
             .load(detailsUser.avatarUrl)
@@ -32,32 +31,66 @@ class DetailUserActivity : AppCompatActivity() {
         binding.tvUsernameDetail.text = detailsUser.login
 
         mainViewModel.getUserDetails(detailsUser.login)
+
+        mainViewModel.isLoading.observe(this){
+            showLoadingDetails(it)
+        }
+
         mainViewModel.detailUsers.observe(this){
             details -> setDataDetails(details)
         }
+
+        createTabsLayout(detailsUser.login)
 
     }
 
     private fun setDataDetails(details: UsersDetailsResponse){
 
-        binding.tvNameDetail.text = details.name
+        if (details.name.isNullOrBlank()){
+            binding.tvNameDetail.text = "-"
+        }else{
+            binding.tvNameDetail.text = details.name
+        }
         binding.tvFollowersDetail.text = fromHtml("<b>${details.followers}</b><br>Followers")
         binding.tvFollowingsDetail.text = fromHtml("<b>${details.following}</b><br>Followings")
 
         binding.fieldRepo.text = ": ${details.publicRepos}"
-        binding.fieldCompany.text = ": ${details.company}"
-        binding.fieldLocation.text = ": ${details.location}"
-        binding.fieldBlog.text = ": ${details.blog}"
+
+        if (details.company.isNullOrBlank()){
+            binding.fieldCompany.text = ": -"
+        }else{
+            binding.fieldCompany.text = ": ${details.company}"
+        }
+
+        if (details.location.isNullOrBlank()){
+            binding.fieldLocation.text = ": -"
+        }else{
+            binding.fieldLocation.text = ": ${details.location}"
+        }
+
+        if (details.blog.isNullOrBlank()){
+            binding.fieldBlog.text = ": -"
+        }else{
+            binding.fieldBlog.text = ": ${details.company}"
+        }
     }
 
-    private fun createTabsLayout(){
+    private fun createTabsLayout(username: String){
         val sectionsPagerAdapter = SectionsPagerAdapter(this@DetailUserActivity)
-        sectionsPagerAdapter.appName = resources.getString(R.string.app_name)
+        sectionsPagerAdapter.username = username
         binding.viewPager.adapter = sectionsPagerAdapter
         TabLayoutMediator(binding.followTabs, binding.viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
         supportActionBar?.elevation = 0f
+    }
+
+    private fun showLoadingDetails(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBarDetails.visibility = View.VISIBLE
+        } else {
+            binding.progressBarDetails.visibility = View.GONE
+        }
     }
 
     companion object {
