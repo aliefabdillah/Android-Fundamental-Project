@@ -31,20 +31,25 @@ class FollowFragment : Fragment(){
 
         val username = arguments?.getString(ARG_NAME)
         val paramService = arguments?.getString(PARAM_SERVICE)
-
         if (username != null && paramService != null) {
             mainViewModel.getFolls(username, paramService)
+            if (paramService == "followers"){
+                mainViewModel.listFollowersData.observe(
+                    viewLifecycleOwner
+                ){ followers ->
+                    createListFolls(followers)
+                }
+            }else{
+                mainViewModel.listFollowingData.observe(
+                    viewLifecycleOwner
+                ){ following ->
+                    createListFolls(following)
+                }
+            }
         }
-
-        mainViewModel.listFollowersData.observe(
-            requireActivity()
-        ){ followers ->
-            createListFolls(followers)
-        }
-
     }
 
-    private fun createListFolls(listFollowers: List<FollsResponseItem>){
+    private fun createListFolls(listFolls: List<FollsResponseItem>){
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvUserDetails.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
@@ -52,12 +57,12 @@ class FollowFragment : Fragment(){
 
         binding.rvUserDetails.setHasFixedSize(true)
 
-        val detailsAdapter = UserFollsAdapter(listFollowers)
+        val detailsAdapter = UserFollsAdapter(listFolls)
         binding.rvUserDetails.adapter = detailsAdapter
     }
 
     companion object {
-        const val PARAM_SERVICE = "null"
+        const val PARAM_SERVICE = "-1"
         var ARG_NAME = "username"
     }
 }

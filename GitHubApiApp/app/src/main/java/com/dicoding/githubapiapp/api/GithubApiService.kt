@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface GithubApiService {
     // mengambil data saat tombol search ditekan
     @GET("search/users")
-//    @Headers("Authorization: token <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>")
+//    @Headers("Authorization: token encrypt (d43ba6a7b914cc8df515a20d29b3a3ed))
     fun getSearchData(
         @Query("q") login : String
     ): Call <GithubResponse>

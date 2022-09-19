@@ -16,6 +16,9 @@ class MainViewModel : ViewModel() {
     private val _listFollowersData = MutableLiveData<List<FollsResponseItem>>()
     val listFollowersData: LiveData<List<FollsResponseItem>> = _listFollowersData
 
+    private val _listFollowingData = MutableLiveData<List<FollsResponseItem>>()
+    val listFollowingData: LiveData<List<FollsResponseItem>> = _listFollowingData
+
     private val _detailUsers = MutableLiveData<UsersDetailsResponse>()
     val detailUsers: LiveData<UsersDetailsResponse> = _detailUsers
 
@@ -90,7 +93,11 @@ class MainViewModel : ViewModel() {
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _listFollowersData.value = response.body()
+                    if (paramService == "followers"){
+                        _listFollowersData.value = response.body()
+                    }else{
+                        _listFollowingData.value = response.body()
+                    }
                 }else {
                     Log.e(TAG, "OnFailure in Response Method: ${response.message()}")
                 }
