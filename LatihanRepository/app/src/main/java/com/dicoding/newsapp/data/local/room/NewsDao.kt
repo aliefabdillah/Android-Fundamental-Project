@@ -12,15 +12,17 @@ interface NewsDao {
     @Query("SELECT * FROM news where bookmarked = 1")
     fun getBookmarkedNews(): LiveData<List<NewsEntity>>
 
+    /*
+    * Suspend digunakan untuk corotuine jika ingin tidak menggunakan coroutine haous suspend*/
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertNews(news: List<NewsEntity>)
+    suspend fun insertNews(news: List<NewsEntity>)
 
     @Update
-    fun updateNews(news: NewsEntity)
+    suspend fun updateNews(news: NewsEntity)
 
     @Query("DELETE FROM news WHERE bookmarked = 0")
-    fun deleteAll()
+    suspend fun deleteAll()
 
     @Query("SELECT EXISTS(SELECT * FROM news WHERE title = :title AND bookmarked = 1)")
-    fun isNewsBookmarked(title: String): Boolean
+    suspend fun isNewsBookmarked(title: String): Boolean
 }
