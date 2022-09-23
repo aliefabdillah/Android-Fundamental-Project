@@ -29,12 +29,21 @@ class NewsAdapter(private val onBookmarkClick: (NewsEntity) -> Unit) : ListAdapt
         holder.bind(news)
 
         val ivBookmark = holder.binding.ivBookmark
+        /* kode dipakai untuk menandai apakah berita sudah di tandai atau belom
+        * penyimpanan kode ini ditaruh pada bindviewholdeer bukan di viewHolder adalah karena
+        * kita ingin menyimpan state dari bookmark yang ditandai. Apabila Anda meletakkan kode ini
+        * di ViewHolder, maka state akan ikut ter-recycle (daur ulang) yang menyebabkan tanda
+        * tidak semestinya.*/
         if (news.isBookmarked) {
+            //jika ada akan menampilkan kode bookmark yang full
             ivBookmark.setImageDrawable(ContextCompat.getDrawable(ivBookmark.context, R.drawable.ic_bookmarked_white))
         } else {
+            //jika tidak maka akan menampilkan bookmark yang border saja
             ivBookmark.setImageDrawable(ContextCompat.getDrawable(ivBookmark.context, R.drawable.ic_bookmark_white))
         }
         ivBookmark.setOnClickListener {
+            /* method onBookmarClick digunakan seperti callback unuk melakukan aksi pada kelas yang
+            * bukan adapter dan akan memanggil blok kode inisialiasi  adapter di newFragment*/
             onBookmarkClick(news)
         }
     }

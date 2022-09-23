@@ -33,10 +33,14 @@ class NewsFragment : Fragment() {
             factory
         }
 
+        /*
+        * kode inisialisasi adapter, dan kode yang dipanggil ketika icon bookmark ditekan*/
         val newsAdapter = NewsAdapter { news ->
             if (news.isBookmarked){
+               //jika state ketika ditekan news sudah dibookmark maka data bookmark akan dihapus
                 viewModel.deleteNews(news)
             }else {
+                //sebaliknya
                 viewModel.saveNews(news)
             }
         }

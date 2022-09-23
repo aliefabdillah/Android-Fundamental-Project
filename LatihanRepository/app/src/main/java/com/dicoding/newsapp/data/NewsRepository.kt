@@ -16,20 +16,29 @@ class NewsRepository private constructor(
     private val newsDao: NewsDao,
     private val appExecutors: AppExecutors
 ){
+
+    /*
+    * variabel mediatorLiveData digunakan jika ingin menggabungkan banyak sumber data dalam sebuah LiveData
+    * apabila data sumber bukan merupakan LiveData gunakan fungsi setValue*/
     private val result = MediatorLiveData<Result<List<NewsEntity>>>()
 
+    /* Menngambil data berita */
     fun getHeadLineNews(): LiveData<Result<List<NewsEntity>>> {
+        // inisialiasi dengan loading view
         result.value = Result.Loading
-        val client = apiService.getNews(BuildConfig.API_KEY)
+        val client = apiService.getNews(BuildConfig.API_KEY)        //mengambil data dari API
 
         client.enqueue(object : retrofit2.Callback<NewsResponse> {
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
+                //jika response berhasil di ambil
                 if (response.isSuccessful){
-                    val articles = response.body()?.articles
+                    val articles = response.body()?.articles        //mengambil data list articles
                     val newsList = ArrayList<NewsEntity>()
                     appExecutors.diskIO.execute {
                         articles?.forEach { article ->
+                            //mengambil data apakah sudah di bookmark atau belom
                             val isBookmarked = newsDao.isNewsBookmarked(article.title)
+                            //memasukan data ke dalam entity
                             val news = NewsEntity(
                                 article.title,
                                 article.publishedAt,
@@ -39,18 +48,23 @@ class NewsRepository private constructor(
                             )
                             newsList.add(news)
                         }
+                        //menghapus semua data yang tidak di bookmark
                         newsDao.deleteAll()
+                        //memasukan data dari network ke dalam database
                         newsDao.insertNews(newsList)
                     }
                 }
             }
 
             override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+                //status data yang diambil error
                 result.value = Result.Error(t.message.toString())
             }
         })
 
-        val localData = newsDao.getNews()
+        val localData = newsDao.getNews()   //mengambil data dari database
+
+        //mengambil data dan memberikan return success
         result.addSource(localData) { newData: List<NewsEntity> ->
             result.value = Result.Success(newData)
         }
