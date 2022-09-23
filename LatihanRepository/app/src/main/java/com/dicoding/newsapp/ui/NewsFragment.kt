@@ -33,7 +33,13 @@ class NewsFragment : Fragment() {
             factory
         }
 
-        val newsAdapter = NewsAdapter()
+        val newsAdapter = NewsAdapter { news ->
+            if (news.isBookmarked){
+                viewModel.deleteNews(news)
+            }else {
+                viewModel.saveNews(news)
+            }
+        }
 
         if (tabName == TAB_NEWS){
             viewModel.getHeadLineNews().observe(viewLifecycleOwner) { result ->
@@ -57,6 +63,11 @@ class NewsFragment : Fragment() {
                         }
                     }
                 }
+            }
+        }  else if (tabName == TAB_BOOKMARK) {
+            viewModel.getBookmarkedNews().observe(viewLifecycleOwner) { bookmarkedNews ->
+                binding?.progressBar?.visibility = View.GONE
+                newsAdapter.submitList(bookmarkedNews)
             }
         }
 
