@@ -127,6 +127,24 @@ class AlarmReceiver : BroadcastReceiver() {
         Toast.makeText(context, "Repeating Alarm Set Up", Toast.LENGTH_SHORT).show()
     }
 
+    //method cancel alarm repeat
+    fun cancelAlarm(context: Context, type: String){
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlarmReceiver::class.java)
+
+        val requestCode = if (type.equals(TYPE_ONE_TIME, ignoreCase = true)) ID_ONETIME else ID_REPEATING
+
+        val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_IMMUTABLE)
+        //cancel pending intent ke sistem
+        pendingIntent.cancel()
+
+        //membatalkan alarm manager ke sistem
+        alarmManager.cancel(pendingIntent)
+
+        Toast.makeText(context, "Repeating Alarm Canceled", Toast.LENGTH_SHORT).show()
+
+    }
+
     //method cek apakah alarm sudah di set
     fun isAlarmSet(context: Context, type: String): Boolean{
         val intent = Intent(context, AlarmReceiver::class.java)

@@ -33,6 +33,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, DatePickFragment
         //listener repeating alarm
         binding?.btnRepeatingTime?.setOnClickListener(this)
         binding?.btnSetRepeatingAlarm?.setOnClickListener(this)
+
+        //listener cancel alarm
+        binding?.btnCancelRepeatAlarm?.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
@@ -60,15 +63,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, DatePickFragment
                     onceTime,
                     onceMessage)
             }
+            //memilih time untuk repeat alarm
             R.id.btn_repeating_time -> {
                 val timePickerFragment = TimePickerFragment()
                 timePickerFragment.show(supportFragmentManager, TIME_PICKER_REPEAT_TAG)
             }
+            //event ketika tombol set Alarm ditekan
             R.id.btn_set_repeating_alarm -> {
-                val repeatTime = binding?.tvRepeatingTime?.text.toString()
+//                val repeatTime = binding?.tvRepeatingTime?.text.toString()
+                val repeatTime = "16:25"
                 val repeatMessage = binding?.edtRepeatingMessage?.text.toString()
                 alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.TYPE_REPEATING, repeatTime, repeatMessage)
             }
+            //event ketika tombol cancel alarm ditekan
+            R.id.btn_cancel_repeat_alarm -> alarmReceiver.cancelAlarm(this, AlarmReceiver.TYPE_REPEATING)
         }
     }
 
