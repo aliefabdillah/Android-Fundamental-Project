@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.icu.number.IntegerWidth
 import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
@@ -47,7 +48,7 @@ class AlarmReceiver : BroadcastReceiver() {
         if (message != null){
             showAlarmNotification(context, title, message, notifId)
         }
-        showToast(context, title, message)
+//        showToast(context, title, message)
     }
 
     private fun showToast(context: Context, title: String, message: String?){
@@ -92,6 +93,46 @@ class AlarmReceiver : BroadcastReceiver() {
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
 
         Toast.makeText(context, "One Time Alarm Set Up", Toast.LENGTH_SHORT).show()
+    }
+
+    // Method untuk set repeat Alarm
+    /*
+    * Isi kodenya kurang lebih sama dengan once time alarm*/
+    fun setRepeatingAlarm(context: Context, type: String, time: String, message: String){
+        if (isDateInvalid(time, TIME_FORMAT)) return
+
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, AlarmReceiver::class.java)
+        intent.putExtra(EXTRA_MESSAGE, message)
+        intent.putExtra(EXTRA_TYPE, type)
+
+        val timeArray = time.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]))
+        calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]))
+        calendar.set(Calendar.SECOND, 0)
+
+        val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, PendingIntent.FLAG_IMMUTABLE)
+
+        //perbedaannya ada disini
+        /*
+        * disini ada penambahan Kode AlarmManager.INTERVAL_DAY yang menandakan alarm akan di aktifkan 1 kali per hari
+        *
+        * penggunaan setInexactRepeating() adalah pilihan lebih tepat karena Android akan menjalankan alarm
+        * ini secara bersamaan dengan alarm lain. Meskipun waktu antara tiap alarm tersebut tidak
+        * sama persis. Ini penting agar baterai peranti user jadi lebih hemat dan tidak cepat habis. */
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+
+        Toast.makeText(context, "Repeating Alarm Set Up", Toast.LENGTH_SHORT).show()
+    }
+
+    //method cek apakah alarm sudah di set
+    fun isAlarmSet(context: Context, type: String): Boolean{
+        val intent = Intent(context, AlarmReceiver::class.java)
+        val requestCode = if (type.equals(TYPE_ONE_TIME, ignoreCase = true)) ID_ONETIME else ID_REPEATING
+
+        return PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_NO_CREATE) != null
     }
 
     //cek apakah format date invalid atau tidak
