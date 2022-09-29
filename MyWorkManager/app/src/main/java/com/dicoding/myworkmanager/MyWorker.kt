@@ -20,7 +20,7 @@ import org.json.JSONObject
 class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(context, workerParams) {
     companion object {
         private val TAG = MyWorker::class.java.simpleName
-        const val APP_ID = "bd2bb7d0101d16b32e9581a9997b8b24"       //api key
+//        const val APP_ID = "bd2bb7d0101d16b32e9581a9997b8b24"       //api key
         const val EXTRA_CITY = "city"
         const val NOTIFICATION_ID = 1
         const val CHANNEL_ID = "channel_01"
@@ -48,7 +48,7 @@ class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(contex
         Log.d(TAG, "getCurrentWeather: Mulai....")
         Looper.prepare()
         val client = SyncHttpClient()
-        val url = "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$APP_ID"
+        val url = "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=${BuildConfig.APP_ID}"     //get API key from BuilConfig
         Log.d(TAG, "getCurrentWeather : $url")
         client.post(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header?>?, responseBody: ByteArray) {
@@ -107,7 +107,7 @@ class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(contex
         * jadi aman saja menjalankan secara langsung. Namun jika Anda ingin menggunakan LoopJ di
         * Activity, maka gunakanlah AsyncHttpClient supaya tidak terjadi error NetworkOnMainThread.*/
         val client = SyncHttpClient()
-        val url = "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$APP_ID"
+        val url = "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=${BuildConfig.APP_ID}"
         Log.d(TAG, "getCurrentWeather : $url")
         client.post(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
