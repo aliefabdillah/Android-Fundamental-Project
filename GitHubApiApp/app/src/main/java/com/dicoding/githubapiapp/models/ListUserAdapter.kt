@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.githubapiapp.MainActivity.Companion.LOGIN
+import com.dicoding.githubapiapp.R
 import com.dicoding.githubapiapp.api.Users
 import com.dicoding.githubapiapp.databinding.ItemRowUserBinding
 
@@ -25,12 +26,12 @@ class ListUserAdapter(private val listUser: List<Users>):
         return ListViewHolder(binding)
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "StringFormatMatches")
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val user = listUser[position]
         holder.binding.tvUsername.text = user.login
-        holder.binding.tvId.text = "ID : ${user.id}"
-        holder.binding.tvUrl.text = "Web : ${user.html_url}"
+        holder.binding.tvId.text = holder.binding.tvId.context.getString(R.string.viewIdText, user.id)
+        holder.binding.tvUrl.text = holder.binding.tvUrl.context.getString(R.string.viewWebText, user.html_url)
         Glide.with(holder.itemView.context)
             .load(user.avatarUrl)
             .circleCrop()

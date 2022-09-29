@@ -1,14 +1,17 @@
 package com.dicoding.githubapiapp.api
 
+import android.provider.Contacts.SettingsColumns.KEY
+import com.dicoding.githubapiapp.BuildConfig
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GithubApiService {
     // mengambil data saat tombol search ditekan
+//    @Headers("Authorization: token ${BuildConfig.KEY}")
     @GET("search/users")
-//    @Headers("Authorization: token encrypt (d43ba6a7b914cc8df515a20d29b3a3ed))
     fun getSearchData(
         @Query("q") login : String
     ): Call <GithubResponse>

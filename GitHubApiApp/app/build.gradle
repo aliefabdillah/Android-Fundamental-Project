@@ -13,6 +13,7 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "KEY", "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"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
