@@ -12,6 +12,8 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.loopj.android.http.SyncHttpClient
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import cz.msebera.android.httpclient.Header
 import org.json.JSONObject
 
@@ -37,10 +39,64 @@ class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(contex
     override fun doWork(): Result {
         //mendapatkan data yang dikirimkan dari mainactivity
         val dataCity = inputData.getString(EXTRA_CITY)
-        return getCurrentWeather(dataCity)
+//        return getCurrentWeatherLoopJ(dataCity)             //mengambil data dari API menggunkan LoopJ
+        return getCurrentWeatherMoshi(dataCity)                 //mengambil data dari API menggunakan MOSHI
+
     }
 
-    private fun getCurrentWeather(city: String?): Result {
+    private fun getCurrentWeatherMoshi(city: String?): Result {
+        Log.d(TAG, "getCurrentWeather: Mulai....")
+        Looper.prepare()
+        val client = SyncHttpClient()
+        val url = "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$APP_ID"
+        Log.d(TAG, "getCurrentWeather : $url")
+        client.post(url, object : AsyncHttpResponseHandler() {
+            override fun onSuccess(statusCode: Int, headers: Array<Header?>?, responseBody: ByteArray) {
+                val result = String(responseBody)
+                Log.d(TAG, result)
+                try {
+
+                    val moshi = Moshi.Builder()
+                        .addLast(KotlinJsonAdapterFactory())
+                        .build()
+                    val jsonAdapter = moshi.adapter(Response::class.java)
+                    val response = jsonAdapter.fromJson(result)
+
+                    response?.let {
+                        val currentWeather = it.weatherList[0].main
+                        val description = it.weatherList[0].description
+                        val tempInKelvin = it.main.temperature
+
+                        val tempInCelsius = tempInKelvin - 273
+                        val temperature: String = DecimalFormat("##.##").format(tempInCelsius)
+                        val title = "Current Weather in $city"
+                        val message = "$currentWeather, $description with $temperature celsius"
+                        showNotification(title, message)
+                    }
+                    Log.d(TAG, "onSuccess: Selesai.....")
+                    resultStatus = Result.success()
+                } catch (e: Exception) {
+                    showNotification("Get Current Weather Not Success", e.message)
+                    Log.d(TAG, "onSuccess: Gagal..")
+                    resultStatus = Result.failure()
+                }
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?,
+                error: Throwable
+            ) {
+                Log.d(TAG, "onFailur: Gagal..")
+                showNotification("Get Current Weather Not Success", error.message)
+                resultStatus = Result.failure()
+            }
+        })
+        return resultStatus as Result
+    }
+
+    private fun getCurrentWeatherLoopJ(city: String?): Result {
         Log.d(TAG, "getCurrentWeather: Mulai....")
         Looper.prepare()
 
