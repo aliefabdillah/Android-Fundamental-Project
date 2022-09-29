@@ -27,7 +27,15 @@ class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(contex
 
     private var resultStatus: Result? = null
 
+    /*
+    * Method ini dipanggila ketika WorkManager berjalan dan kode didalamnya akan dijalankan
+    * pada background thread secara otomatis. method ini mengembalikan nilai berupa result yang berfungsi
+    * untuk mengetahui status work manager yang berjalan
+    *   Result.success(), result yang menandakan berhasil.
+        Result.failure(), result yang menandakan gagal.
+        Result.retry(), result yang menandakan untuk mengulang task lagi.*/
     override fun doWork(): Result {
+        //mendapatkan data yang dikirimkan dari mainactivity
         val dataCity = inputData.getString(EXTRA_CITY)
         return getCurrentWeather(dataCity)
     }
@@ -35,6 +43,13 @@ class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(contex
     private fun getCurrentWeather(city: String?): Result {
         Log.d(TAG, "getCurrentWeather: Mulai....")
         Looper.prepare()
+
+        //menggunakanan SyncHttpClient untuk koneksi yang bersifat Synchronus
+        /*
+        * Khusus di WorkManager Anda perlu menjalankan proses secara synchronous supaya bisa
+        * mendapatkan result success. Selain itu WorkManager sudah berjalan di background thread,
+        * jadi aman saja menjalankan secara langsung. Namun jika Anda ingin menggunakan LoopJ di
+        * Activity, maka gunakanlah AsyncHttpClient supaya tidak terjadi error NetworkOnMainThread.*/
         val client = SyncHttpClient()
         val url = "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$APP_ID"
         Log.d(TAG, "getCurrentWeather : $url")
@@ -58,11 +73,11 @@ class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(contex
                     showNotification(title, message)
                     
                     Log.d(TAG, "onSuccess: Selesai...")
-                    resultStatus = Result.success()
+                    resultStatus = Result.success()             //kembalian result menandakan proses berhasil
                 }catch (e: Exception){
                     showNotification("Get Current Weather Not Success", e.message)
                     Log.d(TAG, "onSuccess: Gagal..")
-                    resultStatus = Result.failure()
+                    resultStatus = Result.failure()             //nilai kembalian result menandakan proses gagal
                 }
             }
 
