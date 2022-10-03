@@ -15,11 +15,13 @@ interface GithubApiService {
         @Query("q") login : String
     ): Call <GithubResponse>
 
+    @Headers("Authorization: token ${BuildConfig.KEY}")
     @GET("users/{login}")
     fun getDetailsData(
         @Path("login") login: String
     ): Call<UsersDetailsResponse>
 
+    @Headers("Authorization: token ${BuildConfig.KEY}")
     @GET("users/{login}/{folls}")
     fun getFollowersData(
         @Path("login") login: String,
