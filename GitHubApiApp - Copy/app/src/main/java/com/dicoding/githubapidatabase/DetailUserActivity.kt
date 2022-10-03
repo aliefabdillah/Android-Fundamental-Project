@@ -1,5 +1,6 @@
 package com.dicoding.githubapidatabase
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html.fromHtml
@@ -44,6 +45,7 @@ class DetailUserActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("StringFormatMatches")
     private fun setDataDetails(details: UsersDetailsResponse){
 
         if (details.name.isNullOrBlank()){
@@ -54,24 +56,24 @@ class DetailUserActivity : AppCompatActivity() {
         binding.tvFollowersDetail.text = fromHtml("<b>${details.followers}</b><br>Followers")
         binding.tvFollowingsDetail.text = fromHtml("<b>${details.following}</b><br>Followings")
 
-        binding.fieldRepo.text = ": ${details.publicRepos}"
+        binding.fieldRepo.text = getString(R.string.viewDetailUserText, details.publicRepos)
 
         if (details.company.isNullOrBlank()){
             binding.fieldCompany.text = ": -"
         }else{
-            binding.fieldCompany.text = ": ${details.company}"
+            binding.fieldCompany.text = getString(R.string.viewDetailUserText, details.company)
         }
 
         if (details.location.isNullOrBlank()){
             binding.fieldLocation.text = ": -"
         }else{
-            binding.fieldLocation.text = ": ${details.location}"
+            binding.fieldLocation.text = getString(R.string.viewDetailUserText, details.location)
         }
 
         if (details.blog.isNullOrBlank()){
             binding.fieldBlog.text = ": -"
         }else{
-            binding.fieldBlog.text = ": ${details.company}"
+            binding.fieldBlog.text = getString(R.string.viewDetailUserText, details.blog)
         }
     }
 

@@ -2,10 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_baseline_search_24"
+        android:id="@+id/favorite"
+        android:icon="@drawable/ic_baseline_favorite_white_24"
+        android:title="@string/favorite"
+        app:showAsAction="collapseActionView|always"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_baseline_settings_white_24"
         android:title="@string/cari"
         app:showAsAction="collapseActionView|always"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
+
 </menu>
 

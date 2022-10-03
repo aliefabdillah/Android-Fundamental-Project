@@ -31,7 +31,7 @@
         </activity>
         <activity
             android:name="com.dicoding.githubapidatabase.MainActivity"
-            android:label="GitHub User's Search"
+            android:label="User's Search"
             android:exported="true">
         </activity>
     </application>

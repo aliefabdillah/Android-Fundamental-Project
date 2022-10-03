@@ -23,4 +23,6 @@
     <string name="profilepicture">profilePicture</string>
     <string name="viewIdText">ID : %s</string>
     <string name="viewWebText">Web : %s</string>
+    <string name="viewDetailUserText">: %s</string>
+    <string name="favorite">Favorite</string>
 </resources>
