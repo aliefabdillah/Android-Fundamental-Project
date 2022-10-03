@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">GitHub API Database</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="null_num">NULL</string>
+    <string name="more_detail">More Detail :</string>
+    <string name="data_more_detail">Data_More_Detail</string>
+    <string name="followers">Followers</string>
+    <string name="followings">Following</string>
+    <string name="repository">- Repository</string>
+    <string name="company">- Company</string>
+    <string name="location">- Location</string>
+    <string name="email">- Blog</string>
+    <string name="data_repo">Data_Repo</string>
+    <string name="data_company">Data_company</string>
+    <string name="data_location">Data_location</string>
+    <string name="data_email">Data_blog</string>
+    <string name="cari">Cari</string>
+    <string name="masukan_username">Masukan Username…</string>
+    <string name="data_id">data_id</string>
+    <string name="html_url">html_url</string>
+    <string name="content_tab_text">This is Tab %1$d</string>
+    <string name="profilepicture">profilePicture</string>
+    <string name="viewIdText">ID : %s</string>
+    <string name="viewWebText">Web : %s</string>
+</resources>
