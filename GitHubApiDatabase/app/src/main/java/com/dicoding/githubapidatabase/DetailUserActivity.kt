@@ -1,9 +1,11 @@
 package com.dicoding.githubapidatabase
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html.fromHtml
+import android.view.Menu
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
@@ -43,6 +45,21 @@ class DetailUserActivity : AppCompatActivity() {
 
         createTabsLayout(detailsUser.login)
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.actionbar_menu, menu)
+        val favoriteMenu = menu.findItem(R.id.favoriteMenu)
+        favoriteMenu.isVisible = false
+
+        val settingMenu = menu.findItem(R.id.settingMenu)
+        settingMenu.setOnMenuItemClickListener {
+            val  i = Intent(this, SettingActivity::class.java)
+            startActivity(i)
+            true
+        }
+        return true
     }
 
     @SuppressLint("StringFormatMatches")

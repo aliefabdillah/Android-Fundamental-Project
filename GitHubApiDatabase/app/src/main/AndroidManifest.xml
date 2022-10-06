@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dicoding.githubapidatabase">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -15,12 +16,27 @@
         android:theme="@style/Theme.GitHubUserApp"
         tools:targetApi="31">
         <activity
-            android:name="com.dicoding.githubapidatabase.DetailUserActivity"
-            android:label="User Detail's"
-            android:exported="true">
+            android:name=".SettingActivity"
+            android:exported="false"
+            android:label="Setting">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
-            android:name="com.dicoding.githubapidatabase.SplashScreenActivity"
+            android:name=".FavoriteActivity"
+            android:exported="false"
+            android:label="Favorite User&apos;s">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".DetailUserActivity"
+            android:exported="true"
+            android:label="User Detail&apos;s" />
+        <activity
+            android:name=".SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.SplashScreen">
             <intent-filter>
@@ -30,10 +46,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.dicoding.githubapidatabase.MainActivity"
-            android:label="User's Search"
-            android:exported="true">
-        </activity>
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="User&apos;s Search" />
     </application>
 
 </manifest>

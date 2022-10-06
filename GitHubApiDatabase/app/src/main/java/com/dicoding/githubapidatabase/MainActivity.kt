@@ -7,6 +7,7 @@ import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.SearchView
 import android.view.View
 import android.widget.Toast
@@ -75,8 +76,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
-        inflater.inflate(R.menu.search_menu, menu)
+        inflater.inflate(R.menu.actionbar_menu, menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.favoriteMenu -> {
+                val i = Intent(this, FavoriteActivity::class.java)
+                startActivity(i)
+            }
+            R.id.settingMenu -> {
+                val  i = Intent(this, SettingActivity::class.java)
+                startActivity(i)
+            }
+        }
         return true
     }
 

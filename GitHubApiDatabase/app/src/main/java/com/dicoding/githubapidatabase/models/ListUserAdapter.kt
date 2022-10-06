@@ -38,7 +38,7 @@ class ListUserAdapter(private val listUser: List<Users>):
             .into(holder.binding.imgItem)
 
         LOGIN = user.login
-        holder.binding.imgItem.setOnClickListener {
+        holder.binding.cardView.setOnClickListener {
             onItemClickCallback.onItemClicked(listUser[holder.adapterPosition])
         }
     }
