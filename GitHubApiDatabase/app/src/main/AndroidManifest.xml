@@ -16,7 +16,7 @@
         android:theme="@style/Theme.GitHubUserApp"
         tools:targetApi="31">
         <activity
-            android:name=".SettingActivity"
+            android:name=".ui.SettingActivity"
             android:exported="false"
             android:label="Setting">
             <meta-data
@@ -24,7 +24,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".FavoriteActivity"
+            android:name=".ui.FavoriteActivity"
             android:exported="false"
             android:label="Favorite User&apos;s">
             <meta-data
@@ -32,11 +32,11 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".DetailUserActivity"
+            android:name=".ui.DetailUserActivity"
             android:exported="true"
             android:label="User Detail&apos;s" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".ui.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.SplashScreen">
             <intent-filter>
@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:label="User&apos;s Search" />
     </application>

@@ -1,4 +1,4 @@
-package com.dicoding.githubapidatabase.api
+package com.dicoding.githubapidatabase.data.api
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -61,19 +61,4 @@ data class UsersDetailsResponse(
 	@field:SerializedName("location")
 	val location: String?
 
-)
-
-data class FollsResponseItem(
-
-	@field:SerializedName("login")
-	val login: String,
-
-	@field:SerializedName("avatar_url")
-	val avatarUrl: String,
-
-	@field:SerializedName("html_url")
-	val htmlUrl: String,
-
-	@field:SerializedName("id")
-	val id: Int
 )

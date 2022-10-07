@@ -1,4 +1,4 @@
-package com.dicoding.githubapidatabase.api
+package com.dicoding.githubapidatabase.data.api
 
 import com.dicoding.githubapidatabase.BuildConfig
 import okhttp3.OkHttpClient

@@ -1,4 +1,4 @@
-package com.dicoding.githubapidatabase
+package com.dicoding.githubapidatabase.ui
 
 import android.app.SearchManager
 import android.content.Context
@@ -16,9 +16,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.dicoding.githubapidatabase.api.Users
+import com.dicoding.githubapidatabase.R
+import com.dicoding.githubapidatabase.data.api.Users
 import com.dicoding.githubapidatabase.databinding.ActivityMainBinding
-import com.dicoding.githubapidatabase.models.ListUserAdapter
+import com.dicoding.githubapidatabase.adapter.ListUserAdapter
 import com.dicoding.githubapidatabase.models.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -118,6 +119,7 @@ class MainActivity : AppCompatActivity() {
             override fun onItemClicked(data: Users) {
                 val iToDetail = Intent(this@MainActivity, DetailUserActivity::class.java)
                 iToDetail.putExtra(DetailUserActivity.EXTRA_DATA, data)
+                iToDetail.putExtra(DetailUserActivity.ACTIVITY_STATE, "Main")
                 startActivity(iToDetail)
             }
         })
@@ -129,9 +131,5 @@ class MainActivity : AppCompatActivity() {
         } else {
             binding.progressBar.visibility = View.GONE
         }
-    }
-
-    companion object {
-        var LOGIN = "TES"
     }
 }

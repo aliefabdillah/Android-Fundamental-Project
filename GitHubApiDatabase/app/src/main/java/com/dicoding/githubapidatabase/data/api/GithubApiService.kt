@@ -1,4 +1,4 @@
-package com.dicoding.githubapidatabase.api
+package com.dicoding.githubapidatabase.data.api
 
 import android.provider.Contacts.SettingsColumns.KEY
 import com.dicoding.githubapidatabase.BuildConfig
@@ -27,5 +27,5 @@ interface GithubApiService {
     fun getFollowersData(
         @Path("login") login: String,
         @Path("folls") params: String
-    ): Call<List<FollsResponseItem>>
+    ): Call<List<Users>>
 }

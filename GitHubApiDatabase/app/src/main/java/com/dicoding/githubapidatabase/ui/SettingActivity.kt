@@ -1,7 +1,8 @@
-package com.dicoding.githubapidatabase
+package com.dicoding.githubapidatabase.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.dicoding.githubapidatabase.R
 
 class SettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

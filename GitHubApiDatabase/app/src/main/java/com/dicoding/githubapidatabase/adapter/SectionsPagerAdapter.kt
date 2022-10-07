@@ -1,10 +1,10 @@
-package com.dicoding.githubapidatabase.models
+package com.dicoding.githubapidatabase.adapter
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.dicoding.githubapidatabase.FollowFragment
+import com.dicoding.githubapidatabase.ui.FollowFragment
 
 class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
     var username: String = ""

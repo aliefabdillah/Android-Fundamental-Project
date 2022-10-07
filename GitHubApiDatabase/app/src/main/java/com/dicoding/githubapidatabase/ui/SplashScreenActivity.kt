@@ -1,4 +1,4 @@
-package com.dicoding.githubapidatabase
+package com.dicoding.githubapidatabase.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent

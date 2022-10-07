@@ -1,4 +1,4 @@
-package com.dicoding.githubapidatabase
+package com.dicoding.githubapidatabase.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,31 +9,56 @@ import android.view.Menu
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.dicoding.githubapidatabase.api.Users
-import com.dicoding.githubapidatabase.api.UsersDetailsResponse
+import com.dicoding.githubapidatabase.R
+import com.dicoding.githubapidatabase.data.api.Users
+import com.dicoding.githubapidatabase.data.api.UsersDetailsResponse
 import com.dicoding.githubapidatabase.databinding.ActivityDetailUserBinding
+import com.dicoding.githubapidatabase.models.FavoriteViewModel
 import com.dicoding.githubapidatabase.models.MainViewModel
-import com.dicoding.githubapidatabase.models.SectionsPagerAdapter
+import com.dicoding.githubapidatabase.adapter.SectionsPagerAdapter
+import com.dicoding.githubapidatabase.data.local.UsersEntity
+import com.dicoding.githubapidatabase.models.ViewModelFactory
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailUserBinding
     private val mainViewModel: MainViewModel by viewModels()
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val detailsUser= intent.getParcelableExtra<Users>(EXTRA_DATA) as Users
-        Glide.with(this@DetailUserActivity)
-            .load(detailsUser.avatarUrl)
-            .circleCrop()
-            .into(binding.imageDetail)
-        binding.tvUsernameDetail.text = detailsUser.login
+        val activityState = intent.getStringExtra(ACTIVITY_STATE)
 
-        mainViewModel.getUserDetails(detailsUser.login)
+        val loginUsername: String
+        var detailUsers: Users? = null
+
+        if (activityState.equals("Main")){
+            val detailsUser = intent.getParcelableExtra<Users>(EXTRA_DATA) as Users
+            Glide.with(this@DetailUserActivity)
+                .load(detailsUser.avatarUrl)
+                .circleCrop()
+                .into(binding.imageDetail)
+            binding.tvUsernameDetail.text = detailsUser.login
+
+            loginUsername = detailsUser.login
+            detailUsers = detailsUser
+        }else{
+            val detailsUser = intent.getParcelableExtra<UsersEntity>(EXTRA_DATA) as UsersEntity
+            Glide.with(this@DetailUserActivity)
+                .load(detailsUser.avatarUrl)
+                .circleCrop()
+                .into(binding.imageDetail)
+            binding.tvUsernameDetail.text = detailsUser.login
+
+            loginUsername = detailsUser.login
+        }
+
+        mainViewModel.getUserDetails(loginUsername)
 
         mainViewModel.isLoading.observe(this){
             showLoadingDetails(it)
@@ -43,8 +68,37 @@ class DetailUserActivity : AppCompatActivity() {
             details -> setDataDetails(details)
         }
 
-        createTabsLayout(detailsUser.login)
+        createTabsLayout(loginUsername)
 
+        //create favorite viewModel using ViewModelFactory
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(this@DetailUserActivity)
+        val favoriteViewModel: FavoriteViewModel by viewModels {
+            factory
+        }
+
+        //cek kondisi apakah user sudah masuk ke dalam favorite atau belum
+        favoriteViewModel.checkUserInDb(loginUsername)
+        favoriteViewModel.favoriteState.observe(this){ isFavorite ->
+            if (isFavorite){
+                binding.btnAddFavorite.text = getString(R.string.removeFromFavorite)
+                binding.btnAddFavorite.background.setTint(ContextCompat.getColor(this, R.color.dark_navy))
+                binding.btnAddFavorite.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_favorite_white_24, 0, 0, 0)
+
+                binding.btnAddFavorite.setOnClickListener {
+                    favoriteViewModel.deleteFromFavorite(loginUsername)
+                }
+            }else{
+                binding.btnAddFavorite.text = getString(R.string.addtofavorite)
+                binding.btnAddFavorite.background.setTint(ContextCompat.getColor(this, R.color.redHeart))
+                binding.btnAddFavorite.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_favorite_border_white_24, 0, 0, 0)
+
+                binding.btnAddFavorite.setOnClickListener {
+                    if (detailUsers != null) {
+                        favoriteViewModel.saveFavorite(detailUsers)
+                    }
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -110,6 +164,7 @@ class DetailUserActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
+        const val ACTIVITY_STATE = ""
 
         @StringRes
         private val TAB_TITLES = intArrayOf(

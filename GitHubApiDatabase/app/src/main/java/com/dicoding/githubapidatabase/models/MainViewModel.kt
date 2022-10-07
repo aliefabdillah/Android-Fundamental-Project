@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.githubapidatabase.api.*
+import com.dicoding.githubapidatabase.data.api.*
 import retrofit2.Call
 import retrofit2.Response
 
@@ -13,11 +13,11 @@ class MainViewModel : ViewModel() {
     private val _listUserData = MutableLiveData<List<Users>>()
     val listUserData: LiveData<List<Users>> = _listUserData
 
-    private val _listFollowersData = MutableLiveData<List<FollsResponseItem>>()
-    val listFollowersData: LiveData<List<FollsResponseItem>> = _listFollowersData
+    private val _listFollowersData = MutableLiveData<List<Users>>()
+    val listFollowersData: LiveData<List<Users>> = _listFollowersData
 
-    private val _listFollowingData = MutableLiveData<List<FollsResponseItem>>()
-    val listFollowingData: LiveData<List<FollsResponseItem>> = _listFollowingData
+    private val _listFollowingData = MutableLiveData<List<Users>>()
+    val listFollowingData: LiveData<List<Users>> = _listFollowingData
 
     private val _detailUsers = MutableLiveData<UsersDetailsResponse>()
     val detailUsers: LiveData<UsersDetailsResponse> = _detailUsers
@@ -86,10 +86,10 @@ class MainViewModel : ViewModel() {
         _isLoading.value = true
         val client = GithubApiConfig.getApiService().getFollowersData(username, paramService)
 
-        client.enqueue(object : retrofit2.Callback<List<FollsResponseItem>>{
+        client.enqueue(object : retrofit2.Callback<List<Users>>{
             override fun onResponse(
-                call: Call<List<FollsResponseItem>>,
-                response: Response<List<FollsResponseItem>>
+                call: Call<List<Users>>,
+                response: Response<List<Users>>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
@@ -103,7 +103,7 @@ class MainViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<List<FollsResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Users>>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "OnFailure in Failure Method: ${t.message}")
             }

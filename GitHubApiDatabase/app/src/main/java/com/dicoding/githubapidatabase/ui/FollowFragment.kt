@@ -1,5 +1,6 @@
-package com.dicoding.githubapidatabase
+package com.dicoding.githubapidatabase.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,9 +10,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.githubapidatabase.databinding.FragmentFollowBinding
-import com.dicoding.githubapidatabase.api.FollsResponseItem
 import com.dicoding.githubapidatabase.models.MainViewModel
-import com.dicoding.githubapidatabase.models.UserFollsAdapter
+import com.dicoding.githubapidatabase.adapter.UserFollsAdapter
+import com.dicoding.githubapidatabase.data.api.Users
 
 class FollowFragment : Fragment(){
     private lateinit var binding: FragmentFollowBinding
@@ -49,7 +50,7 @@ class FollowFragment : Fragment(){
         }
     }
 
-    private fun createListFolls(listFolls: List<FollsResponseItem>){
+    private fun createListFolls(listFolls: List<Users>){
         val layoutManager = LinearLayoutManager(requireActivity())
         binding.rvUserDetails.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
@@ -59,6 +60,16 @@ class FollowFragment : Fragment(){
 
         val detailsAdapter = UserFollsAdapter(listFolls)
         binding.rvUserDetails.adapter = detailsAdapter
+        println("test")
+        detailsAdapter.setOnItemClickCallback(object : UserFollsAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: Users) {
+                println("tes")
+                val iToDetail = Intent(requireActivity(), DetailUserActivity::class.java)
+                iToDetail.putExtra(DetailUserActivity.EXTRA_DATA, data)
+                iToDetail.putExtra(DetailUserActivity.ACTIVITY_STATE, "Main")
+                startActivity(iToDetail)
+            }
+        })
     }
 
     companion object {
