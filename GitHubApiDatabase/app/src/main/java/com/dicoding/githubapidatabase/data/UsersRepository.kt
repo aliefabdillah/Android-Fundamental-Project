@@ -1,14 +1,11 @@
 package com.dicoding.githubapidatabase.data
 
 import androidx.lifecycle.LiveData
-import com.dicoding.githubapidatabase.data.api.GithubApiService
 import com.dicoding.githubapidatabase.data.local.UsersDao
 import com.dicoding.githubapidatabase.data.local.UsersEntity
-import com.dicoding.githubapidatabase.utils.AppExecutors
 
 class UsersRepository private constructor(
-    private val usersDao: UsersDao,
-    private val appExecutors: AppExecutors
+    private val usersDao: UsersDao
 ) {
 
     fun getListFavoriteUsers(): LiveData<List<UsersEntity>> {
@@ -35,10 +32,9 @@ class UsersRepository private constructor(
         private var instance: UsersRepository? = null
         fun getInstance(
             usersDao: UsersDao,
-            appExecutors: AppExecutors
         ): UsersRepository =
             instance ?: synchronized(this){
-                instance ?: UsersRepository(usersDao, appExecutors)
+                instance ?: UsersRepository(usersDao)
             }.also { instance = it }
     }
 
