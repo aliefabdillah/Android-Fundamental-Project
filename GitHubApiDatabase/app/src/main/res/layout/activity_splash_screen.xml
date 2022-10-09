@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darker_navy"
+    android:background="?attr/colorOnPrimary"
     tools:context=".ui.SplashScreenActivity">
 
     <ImageView
@@ -11,6 +12,8 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/ic_github_logo_w" />
+        android:src="@drawable/ic_github_logo_w"
+        android:contentDescription="@string/splashscreenlogo"
+        app:tint="?attr/colorPrimary" />
 
 </RelativeLayout>

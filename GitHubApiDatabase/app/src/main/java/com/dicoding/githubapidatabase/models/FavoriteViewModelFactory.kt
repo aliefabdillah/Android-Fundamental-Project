@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.dicoding.githubapidatabase.data.UsersRepository
 import com.dicoding.githubapidatabase.di.Injection
 
-class ViewModelFactory private constructor(private val usersRepository: UsersRepository) :
+class FavoriteViewModelFactory private constructor(private val usersRepository: UsersRepository) :
     ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
@@ -19,10 +19,10 @@ class ViewModelFactory private constructor(private val usersRepository: UsersRep
 
     companion object {
         @Volatile
-        private var instance: ViewModelFactory? = null
-        fun getInstance(context: Context): ViewModelFactory =
+        private var instance: FavoriteViewModelFactory? = null
+        fun getInstance(context: Context): FavoriteViewModelFactory =
             instance ?: synchronized(this){
-                instance ?: ViewModelFactory(Injection.provideRepository(context))
+                instance ?: FavoriteViewModelFactory(Injection.provideRepository(context))
             }.also { instance = it }
     }
 }

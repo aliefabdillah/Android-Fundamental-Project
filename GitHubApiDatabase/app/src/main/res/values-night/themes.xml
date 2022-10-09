@@ -1,16 +1,26 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.GitHubUserApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.GitHubUserApp" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/navy</item>
         <item name="colorPrimaryVariant">@color/dark_navy</item>
         <item name="colorOnPrimary">@color/darker_navy</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/white</item>
-        <item name="colorSecondaryVariant">@color/navy</item>
-        <item name="colorOnSecondary">@color/darker_navy</item>
+        <item name="colorSecondary">@color/redHeart</item>
+        <item name="colorSecondaryVariant">@color/darkRed</item>
+        <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnPrimary</item>
+        <item name="android:statusBarColor" >?attr/colorOnPrimary</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:editTextColor">@color/white</item>
+        <item name="android:searchHintIcon" tools:targetApi="lollipop_mr1">@color/white</item>
+    </style>
+
+    <style name="Theme.SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/dark_navy</item>
+        <item name="colorOnPrimary">@color/darker_navy</item>
     </style>
 </resources>

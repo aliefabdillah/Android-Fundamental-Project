@@ -5,12 +5,12 @@
         android:id="@+id/favoriteMenu"
         android:icon="@drawable/ic_baseline_favorite_white_24"
         android:title="@string/favorite"
-        app:showAsAction="collapseActionView|always" />
+        app:showAsAction="collapseActionView|ifRoom" />
     <item
         android:id="@+id/settingMenu"
         android:icon="@drawable/ic_baseline_settings_white_24"
         android:title="@string/cari"
-        app:showAsAction="collapseActionView|always" />
+        app:showAsAction="collapseActionView|ifRoom" />
 
 </menu>
 

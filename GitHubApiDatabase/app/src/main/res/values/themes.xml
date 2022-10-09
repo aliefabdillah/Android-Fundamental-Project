@@ -2,25 +2,26 @@
     <!-- Base application theme. -->
     <style name="Theme.GitHubUserApp" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/navy</item>
-        <item name="colorPrimaryVariant">@color/dark_navy</item>
-        <item name="colorOnPrimary">@color/darker_navy</item>
+        <item name="colorPrimary">@color/dark_blue</item>
+        <item name="colorPrimaryVariant">@color/light_cyan</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/redHeart</item>
-        <item name="colorSecondaryVariant">@color/redHeart</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondary">@color/blue</item>
+        <item name="colorSecondaryVariant">@color/tosca_blue</item>
+        <item name="colorOnSecondary">@color/black</item>
+
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnPrimary</item>
+        <item name="android:statusBarColor" >?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
-        <item name="android:textColorHint">@color/white</item>
-        <item name="android:editTextColor">@color/white</item>
-        <item name="android:searchHintIcon" tools:targetApi="lollipop_mr1">@color/white</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:editTextColor">@color/black</item>
+        <item name="android:searchHintIcon" tools:targetApi="lollipop_mr1">@color/black</item>
     </style>
 
     <style name="Theme.SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/navy</item>
         <item name="colorPrimaryVariant">@color/dark_navy</item>
-        <item name="colorOnPrimary">@color/darker_navy</item>
+        <item name="colorOnPrimary">@color/white</item>
     </style>
 </resources>

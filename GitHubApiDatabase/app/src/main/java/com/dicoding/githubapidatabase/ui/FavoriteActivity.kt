@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +16,7 @@ import com.dicoding.githubapidatabase.adapter.ListFavoriteAdapter
 import com.dicoding.githubapidatabase.data.local.UsersEntity
 import com.dicoding.githubapidatabase.databinding.ActivityFavoriteBinding
 import com.dicoding.githubapidatabase.models.FavoriteViewModel
-import com.dicoding.githubapidatabase.models.ViewModelFactory
+import com.dicoding.githubapidatabase.models.FavoriteViewModelFactory
 
 class FavoriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFavoriteBinding
@@ -29,7 +28,7 @@ class FavoriteActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val viewModelFactory: ViewModelFactory = ViewModelFactory.getInstance(this)
+        val viewModelFactory: FavoriteViewModelFactory = FavoriteViewModelFactory.getInstance(this)
         val favoriteViewModel: FavoriteViewModel by viewModels {
             viewModelFactory
         }

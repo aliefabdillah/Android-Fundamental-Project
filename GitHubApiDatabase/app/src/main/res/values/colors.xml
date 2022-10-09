@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="black">#1B1B1B</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!--  Dark  -->
     <color name="navy">#191F29</color>
     <color name="dark_navy">#0D1117</color>
     <color name="darker_navy">#010409</color>
     <color name="dark_grey">#21262D</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
     <color name="grey" >#686868</color>
     <color name="redHeart">#FF577F</color>
+    <color name="darkRed">#B22727</color>
+
+    <!--  Ligth  -->
+    <color name="light_cyan">#DFF6FF</color>
+    <color name="blue">#47B5FF</color>
+    <color name="tosca_blue">#256D85</color>
+    <color name="dark_blue">#06283D</color>
 </resources>

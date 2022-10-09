@@ -2,31 +2,31 @@ package com.dicoding.githubapidatabase.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Html.fromHtml
+import android.util.TypedValue
 import android.view.Menu
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.dicoding.githubapidatabase.R
+import com.dicoding.githubapidatabase.adapter.SectionsPagerAdapter
 import com.dicoding.githubapidatabase.data.api.Users
 import com.dicoding.githubapidatabase.data.api.UsersDetailsResponse
+import com.dicoding.githubapidatabase.data.local.UsersEntity
 import com.dicoding.githubapidatabase.databinding.ActivityDetailUserBinding
 import com.dicoding.githubapidatabase.models.FavoriteViewModel
+import com.dicoding.githubapidatabase.models.FavoriteViewModelFactory
 import com.dicoding.githubapidatabase.models.MainViewModel
-import com.dicoding.githubapidatabase.adapter.SectionsPagerAdapter
-import com.dicoding.githubapidatabase.data.local.UsersEntity
-import com.dicoding.githubapidatabase.models.ViewModelFactory
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailUserBinding
     private val mainViewModel: MainViewModel by viewModels()
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint("ResourceAsColor", "ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
@@ -71,7 +71,7 @@ class DetailUserActivity : AppCompatActivity() {
         createTabsLayout(loginUsername)
 
         //create favorite viewModel using ViewModelFactory
-        val factory: ViewModelFactory = ViewModelFactory.getInstance(this@DetailUserActivity)
+        val factory: FavoriteViewModelFactory = FavoriteViewModelFactory.getInstance(this@DetailUserActivity)
         val favoriteViewModel: FavoriteViewModel by viewModels {
             factory
         }
@@ -81,7 +81,11 @@ class DetailUserActivity : AppCompatActivity() {
         favoriteViewModel.favoriteState.observe(this){ isFavorite ->
             if (isFavorite){
                 binding.btnAddFavorite.text = getString(R.string.removeFromFavorite)
-                binding.btnAddFavorite.background.setTint(ContextCompat.getColor(this, R.color.dark_navy))
+                val typedValue = TypedValue()
+                this.theme.resolveAttribute(com.google.android.material.R.attr.colorSecondaryVariant, typedValue, true)
+                val color = typedValue.resourceId
+                binding.btnAddFavorite.background.setTint(ContextCompat.getColor(this, color))
+
                 binding.btnAddFavorite.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_favorite_white_24, 0, 0, 0)
 
                 binding.btnAddFavorite.setOnClickListener {
@@ -89,7 +93,10 @@ class DetailUserActivity : AppCompatActivity() {
                 }
             }else{
                 binding.btnAddFavorite.text = getString(R.string.addtofavorite)
-                binding.btnAddFavorite.background.setTint(ContextCompat.getColor(this, R.color.redHeart))
+                val typedValue = TypedValue()
+                this.theme.resolveAttribute(com.google.android.material.R.attr.colorSecondary, typedValue, true)
+                val color = typedValue.resourceId
+                binding.btnAddFavorite.background.setTint(ContextCompat.getColor(this, color))
                 binding.btnAddFavorite.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_favorite_border_white_24, 0, 0, 0)
 
                 binding.btnAddFavorite.setOnClickListener {
@@ -124,8 +131,8 @@ class DetailUserActivity : AppCompatActivity() {
         }else{
             binding.tvNameDetail.text = details.name
         }
-        binding.tvFollowersDetail.text = fromHtml("<b>${details.followers}</b><br>Followers")
-        binding.tvFollowingsDetail.text = fromHtml("<b>${details.following}</b><br>Followings")
+        binding.tvFollowersDetail.text = getString(R.string.viewFollowerText, details.followers)
+        binding.tvFollowingsDetail.text = getString(R.string.viewFollowingText, details.following)
 
         binding.fieldRepo.text = getString(R.string.viewDetailUserText, details.publicRepos)
 

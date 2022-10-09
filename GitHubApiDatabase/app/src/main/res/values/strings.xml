@@ -21,6 +21,8 @@
     <string name="html_url">html_url</string>
     <string name="content_tab_text">This is Tab %1$d</string>
     <string name="profilepicture">profilePicture</string>
+    <string name="viewFollowerText">%s\nFollowers</string>
+    <string name="viewFollowingText">%s\nFollowings</string>
     <string name="viewIdText">ID : %s</string>
     <string name="viewWebText">Web : %s</string>
     <string name="viewDetailUserText">: %s</string>
@@ -28,4 +30,6 @@
     <string name="addtofavorite">Add Favorite</string>
     <string name="removeFromFavorite">Remove Favorite</string>
     <string name="tidak_ada_favorite_user">Tidak Ada Favorite User</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="splashscreenlogo">splashScreenLogo</string>
 </resources>
