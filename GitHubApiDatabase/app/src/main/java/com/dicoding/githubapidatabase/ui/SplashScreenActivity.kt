@@ -16,7 +16,7 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.githubLogo.alpha = 0f
-        binding.githubLogo.animate().setDuration(5000).alpha(1f).withEndAction {
+        binding.githubLogo.animate().setDuration(3000).alpha(1f).withEndAction {
             val i = Intent(this@SplashScreenActivity, MainActivity::class.java)
             startActivity(i)
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
