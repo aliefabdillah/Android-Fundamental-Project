@@ -34,7 +34,7 @@ class UserFollsAdapter(private val listUserFolls: List<Users>):
             .into(holder.follsBinding.imgItem)
         holder.follsBinding.tvUsername.text = listFolls.login
         holder.follsBinding.tvId.text = holder.follsBinding.tvId.context.getString(R.string.viewIdText, listFolls.id)
-        holder.follsBinding.tvUrl.text = holder.follsBinding.tvId.context.getString(R.string.viewIdText, listFolls.html_url)
+        holder.follsBinding.tvUrl.text = holder.follsBinding.tvId.context.getString(R.string.viewWebText, listFolls.html_url)
 
         holder.follsBinding.cardView.setOnClickListener {
             onItemClickCallback.onItemClicked(listUserFolls[holder.adapterPosition])
