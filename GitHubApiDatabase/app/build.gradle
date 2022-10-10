@@ -7,6 +7,8 @@ plugins {
 
 android {
     compileSdk 32
+    def localProperties = new Properties()
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 
     defaultConfig {
         applicationId "com.dicoding.githubapidatabase"
@@ -14,18 +16,15 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "API_KEY", localProperties['apiKey']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        debug{
-            buildConfigField "String", "ApiKey", APPNAME_API_KEY
-        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "ApiKey", APPNAME_API_KEY
         }
     }
     compileOptions {
